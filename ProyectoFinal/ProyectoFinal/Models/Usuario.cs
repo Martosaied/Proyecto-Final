@@ -27,7 +27,7 @@ namespace ProyectoFinal.Models
 
         public static MySqlConnection ObtenerConexion()
         {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=1234;");
             conectar.Open();
             return conectar;
         }
@@ -41,6 +41,32 @@ namespace ProyectoFinal.Models
                     Usuario.Nombre, Usuario.Apellido, Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
                     retorno = comando.ExecuteNonQuery();
                     return retorno;
+        }
+
+        public static Usuario Loguear(Usuario Usuario)
+        {
+            int retorno;
+            retorno = 0;
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from usuarios WHERE Email='{0}' and Contraseña='{1}'", Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
+            retorno = comando.ExecuteNonQuery();
+            MySqlDataReader reader = comando.ExecuteReader();
+            Usuario MiUsuario = new Usuario();
+
+            while (reader.Read())
+            { 
+                
+                reader.Read();
+                MiUsuario.ID = (int)reader["IdUsuario"];
+                MiUsuario.Nombre = reader["Nombre"].ToString();
+                MiUsuario.Apellido = reader["Apellido"].ToString();
+                MiUsuario.Email = Usuario.Email;
+                MiUsuario.Contraseña = Usuario.Contraseña;
+                return MiUsuario;
+            }
+                MiUsuario = null;
+                return MiUsuario;
+
+            
         }
 
         

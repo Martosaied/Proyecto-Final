@@ -8,11 +8,12 @@
 body {
     font-family: 'Nunito', sans-serif;
     color: #384047;
+
 }
 
 form {
   max-width: 300px;
-  margin: 10px auto;
+  margin:10px auto;
   padding: 10px 20px;
   background: #f4f7f8;
   border-radius: 8px;
@@ -80,6 +81,7 @@ button {
 fieldset {
   margin-bottom: 30px;
   border: none;
+
 }
 
 legend {
