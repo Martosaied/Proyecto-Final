@@ -1,13 +1,12 @@
-﻿body {
-    padding-top: 50px;
+﻿
+body {
     padding-bottom: 20px;
-    display:inline-block;
 }
 
 /* Set padding to keep content from hitting the edges */
 .body-content {
-    padding-left: 15px;
-    padding-right: 15px;
+    padding-left: 5px;
+    padding-right: 5px;
 }
 
 /* Set width on the form input elements since they're 100% wide by default */
@@ -16,4 +15,13 @@ select,
 textarea {
     max-width: 280px;
 }
+
+.navbar-brand {
+    float:right;
+}
+
+.navbar-header{
+    width: 90%;
+}
+
 

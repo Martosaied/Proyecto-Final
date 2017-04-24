@@ -30,30 +30,35 @@ namespace ProyectoFinal.Controllers
                 int Correcto = Usuario.Registrar(Registrando);
                 if (Correcto == 1)
                 {
+                     
                     return View("RegistradoExito");
                 }
-                return View("Index");
+                return View("Registracion");
             }
             else
             {
-                return View("Index");
+                return View("Registracion");
             }
         }
+
+        
 
         public ActionResult Login(Usuario Logueando)
         {
             if(ModelState.IsValidField("Email") && ModelState.IsValidField("Contraseña"))
             {
+                
                 Usuario Usuario = Usuario.Loguear(Logueando);
                 if (Usuario != null)
                 {
+
                     return View("HomeUsuario");
                 }
-                return View("Index");
+                return View("Login");
             }
             else
             {
-                return View("Index");
+                return View("Login");
             }
         }
         }
