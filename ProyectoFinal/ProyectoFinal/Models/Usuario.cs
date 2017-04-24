@@ -19,6 +19,7 @@ namespace ProyectoFinal.Models
         public string Apellido { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
+        [DataType(DataType.EmailAddress, ErrorMessage = "Email no valido")]
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
