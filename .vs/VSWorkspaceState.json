@@ -5,8 +5,9 @@
     "\\ProyectoFinal\\ProyectoFinal",
     "\\ProyectoFinal\\ProyectoFinal\\Controllers",
     "\\ProyectoFinal\\ProyectoFinal\\Views",
-    "\\ProyectoFinal\\ProyectoFinal\\Views\\Home"
+    "\\ProyectoFinal\\ProyectoFinal\\Views\\Home",
+    "\\ProyectoFinal\\ProyectoFinal\\Views\\Shared"
   ],
-  "SelectedNode": "\\ProyectoFinal\\ProyectoFinal\\Views\\Home\\Index.cshtml",
+  "SelectedNode": "\\ProyectoFinal\\ProyectoFinal\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }
