@@ -14,6 +14,12 @@ namespace ProyectoFinal.Controllers
             return View();
         }
 
+        public ActionResult LogOff()
+        {
+            Usuario.Logueado = false;
+            return View("HomeDeInicio");
+        }
+
         public ActionResult AbrirLogin()
         {
             return View("Login");
@@ -21,6 +27,14 @@ namespace ProyectoFinal.Controllers
          public ActionResult AbrirRegistracion()
         {
             return View("Registracion");
+        }
+        public ActionResult AbrirHomeDI()
+        {
+            return View("Index");
+        }
+        public ActionResult AbrirSubir()
+        {
+            return View("SubirContenido");
         }
 
         public ActionResult Registracion(Usuario Registrando)
@@ -51,7 +65,8 @@ namespace ProyectoFinal.Controllers
                 Usuario Usuario = Usuario.Loguear(Logueando);
                 if (Usuario != null)
                 {
-
+                    Usuario.Logueado = true;
+                    ViewBag.Usuario = Usuario;
                     return View("HomeUsuario");
                 }
                 return View("Login");

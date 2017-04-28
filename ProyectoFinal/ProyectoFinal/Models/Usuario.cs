@@ -23,8 +23,25 @@ namespace ProyectoFinal.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
+        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres de largo.", MinimumLength = 6)]
+        [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        public static bool Logueado { get; set; }
+     
+
+
+        public static bool Autenticacion()
+        {
+            if(Usuario.Logueado)
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
+        }
 
         public static MySqlConnection ObtenerConexion()
         {
@@ -38,7 +55,8 @@ namespace ProyectoFinal.Models
         public static int Registrar(Usuario Usuario)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format("Insert into usuarios (Nombre, Apellido, Email, Contraseña) values ('{0}','{1}','{2}', '{3}')",
+            
+    MySqlCommand comando = new MySqlCommand(string.Format("Insert into usuarios (Nombre, Apellido, Email, Contraseña) values ('{0}','{1}','{2}', '{3}')",
                     Usuario.Nombre, Usuario.Apellido, Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
                     retorno = comando.ExecuteNonQuery();
                     return retorno;
