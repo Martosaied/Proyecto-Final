@@ -27,6 +27,7 @@ namespace ProyectoFinal.Models
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        public static Usuario usuarioConectado { get; set;} 
         public static bool Logueado { get; set; }
      
 
@@ -84,7 +85,7 @@ namespace ProyectoFinal.Models
             }
                 MiUsuario = null;
                 return MiUsuario;
-
+            
             
         }
 

@@ -9,6 +9,7 @@ namespace ProyectoFinal.Controllers
 {
     public class HomeController : Controller
     {
+        
         public ActionResult Index()
         {
             return View();
@@ -62,12 +63,13 @@ namespace ProyectoFinal.Controllers
             if(ModelState.IsValidField("Email") && ModelState.IsValidField("Contraseña"))
             {
                 
-                Usuario Usuario = Usuario.Loguear(Logueando);
-                if (Usuario != null)
+                Usuario User = Usuario.Loguear(Logueando);
+                if (User != null)
                 {
                     Usuario.Logueado = true;
-                    ViewBag.Usuario = Usuario;
-                    return View("HomeUsuario");
+                    ViewBag.Usuario = User;
+                    Usuario.usuarioConectado = User;
+                    return View("HomeUsuario", User);
                 }
                 return View("Login");
             }
