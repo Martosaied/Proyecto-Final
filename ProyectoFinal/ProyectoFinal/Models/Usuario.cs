@@ -27,6 +27,10 @@ namespace ProyectoFinal.Models
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
+        [Required(ErrorMessage = "Campo obligatorio")]
+        [Compare("Contraseña", ErrorMessage = "Las contraseñas no coinciden ")]
+        public string confirmarContraseña { get; set; }
+
         public static Usuario usuarioConectado { get; set;} 
         public static bool Logueado { get; set; }
      
@@ -88,6 +92,7 @@ namespace ProyectoFinal.Models
             
             
         }
+
 
         
     }
