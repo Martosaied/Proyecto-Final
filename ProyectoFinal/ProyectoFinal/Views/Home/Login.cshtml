@@ -43,13 +43,13 @@
         @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-signin", role = "form" }))
         {
             <h2 class="form-signin-heading">Please sign in</h2>
-            <label for="inputEmail" class="sr-only">Email address</label>
-            @Html.ValidationMessageFor(x => x.Email)<br />
-            @Html.TextBoxFor(x => x.Email, new {type="email", @class="form-control", placeholder="Email"})
+            @Html.LabelFor(x => x.Email)
+            @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control" })
+            @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
 
-            <label for="inputPassword" class="sr-only">Password</label>
-            @Html.ValidationMessageFor(x => x.Contraseña)<br />
-            @Html.PasswordFor(x => x.Contraseña, new {@class = "form-control", placeholder="Contraseña" })
+            @Html.LabelFor(x => x.Contraseña)
+            @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control", type = "password" })
+            @Html.ValidationMessageFor(x => x.Contraseña, "", new { @class = "text-danger" })<br />
 
             <div class="checkbox">
                 <label>

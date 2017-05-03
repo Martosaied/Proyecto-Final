@@ -1,6 +1,5 @@
 {
   "ExpandedNodes": [
-    "",
     "\\ProyectoFinal",
     "\\ProyectoFinal\\ProyectoFinal",
     "\\ProyectoFinal\\ProyectoFinal\\Controllers",
@@ -8,6 +7,5 @@
     "\\ProyectoFinal\\ProyectoFinal\\Views\\Home",
     "\\ProyectoFinal\\ProyectoFinal\\Views\\Shared"
   ],
-  "SelectedNode": "\\ProyectoFinal\\ProyectoFinal\\Views\\Shared\\_Layout.cshtml",
   "PreviewInSolutionExplorer": false
 }

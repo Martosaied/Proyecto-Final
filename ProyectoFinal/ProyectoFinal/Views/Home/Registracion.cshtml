@@ -30,27 +30,33 @@
 <body style="padding-top:0px;">
 
     <div class="container">
-
+        
         @using (Html.BeginForm("Registracion", "Home", FormMethod.Post, new { @class = "form-signin", role = "form" }))
         {
-            <h2 class="form-signin-heading">Please sign up</h2>
-            @Html.ValidationMessageFor(x => x.Nombre)<br />
-            @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
+            <fieldset>
+                <h2 class="form-signin-heading">Registrese</h2>
+                
+                @Html.LabelFor(x => x.Nombre)
+                @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Nombre, "", new { @class = "text-danger" })<br />
+ 
+                @Html.LabelFor(x => x.Apellido)
+                @Html.TextBoxFor(x => x.Apellido, new { @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Apellido, "", new { @class = "text-danger" })<br />
 
-            @Html.ValidationMessageFor(x => x.Apellido)<br />
-            @Html.TextBoxFor(x => x.Apellido, new { @class = "form-control", placeholder = "Apellido" })
+                @Html.LabelFor(x => x.Email)
+                @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control"})
+                @Html.ValidationMessageFor(x => x.Email, "", new { @class = "text-danger" })<br />
 
-            @Html.ValidationMessageFor(x => x.Email)<br />
-            @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control", placeholder = "Email" })
+                @Html.LabelFor(x => x.Contraseña)
+                @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control", type = "password" })
+                @Html.ValidationMessageFor(x => x.Contraseña, "", new { @class = "text-danger" })<br />
+                
+                @Html.PasswordFor(x => x.confirmarContraseña, new { @class = "form-control", placeholder = "Repita la contraseña", type = "password" })
+                @Html.ValidationMessageFor(x => x.confirmarContraseña, "", new { @class = "text-danger" })<br />
 
-            @Html.ValidationMessageFor(x => x.Contraseña)<br />
-            @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control", placeholder = "Contraseña", type = "password" })
-
-            @Html.ValidationMessageFor(x => x.confirmarContraseña)<br />
-            @Html.PasswordFor(x => x.confirmarContraseña, new { @class = "form-control", placeholder = "Repita la contraseña", type = "password" })
-
-
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
+            </fieldset>
         }
 
     </div> <!-- /container -->

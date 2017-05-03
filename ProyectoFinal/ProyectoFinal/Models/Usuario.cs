@@ -23,7 +23,7 @@ namespace ProyectoFinal.Models
         public string Email { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
-        [StringLength(100, ErrorMessage = "La {0} debe tener al menos {2} caracteres de largo.", MinimumLength = 6)]
+        [RegularExpression("^[a-zA-Z0-9]{8,10}$", ErrorMessage = "La contraseña debe tener de 8 a 10 caracteres, al menos un numero y una mayuscula")]
         [DataType(DataType.Password)]
         public string Contraseña { get; set; }
 
