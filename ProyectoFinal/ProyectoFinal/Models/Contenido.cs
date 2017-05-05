@@ -14,6 +14,7 @@ namespace ProyectoFinal.Models
         public int ID { get; set; }
         public string Nombre { get; set; }
         public string Ruta { get; set; }
+        public string Descripcion { get; set; }
         public int IdUsuario { get; set; }
 
         public static MySqlConnection ObtenerConexion()
