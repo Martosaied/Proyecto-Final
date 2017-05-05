@@ -12,13 +12,17 @@
     <title>SubirContenido</title>
     <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
     <link rel="stylesheet" href="css/main.css">
+    <link href="../../dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
+    <link href="~/Content/signin.css" rel="stylesheet">
+    <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
 </head>
 <body>
     <div class="container">
 
-        @using (Html.BeginForm("Subir", "Home", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        @using (Html.BeginForm("Subir", "Home", FormMethod.Post, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
         {
-            <h2 class="form-signin-heading">Please sign up</h2>
+            <h2 class="form-signin-heading">Subir archivo</h2>
             //<label for="inputEmail" class="sr-only">Email address</label>
             @Html.ValidationMessageFor(x => x.Nombre)<br />
             @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
@@ -34,7 +38,6 @@
         }
 
     </div> <!-- /container -->
-    <!-- IE10 viewport hack for Surface/desktop Windows 8 bug -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

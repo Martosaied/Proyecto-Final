@@ -37,7 +37,6 @@ namespace ProyectoFinal.Controllers
         {
             return View("SubirContenido");
         }
-
         public ActionResult Registracion(Usuario Registrando)
         {
             if (ModelState.IsValid)
@@ -55,9 +54,27 @@ namespace ProyectoFinal.Controllers
                 return View("Registracion");
             }
         }
-
-        
-
+        [HttpPost]
+        public ActionResult Subir(Contenido Cont, HttpPostedFileBase file)
+        {
+            if (ModelState.IsValid)
+            {
+                
+                if (file != null)
+                {
+                    string archivo = (DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + file.FileName).ToLower();
+                    Cont.Ruta = "~/Uploads/" + archivo;
+                    int Correcto = Contenido.Subir(Cont, Usuario.usuarioConectado);        
+                    file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
+                    return View("Subidas");
+                }
+                return View("SubirContenido");
+            }
+            else
+            {
+                return View("SubirContenido");
+            }
+        }
         public ActionResult Login(Usuario Logueando)
         {
             if(ModelState.IsValidField("Email") && ModelState.IsValidField("Contraseña"))
@@ -78,6 +95,7 @@ namespace ProyectoFinal.Controllers
                 return View("Login");
             }
         }
+
         }
 
     }
