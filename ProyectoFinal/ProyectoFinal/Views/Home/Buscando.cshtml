@@ -1,0 +1,24 @@
+﻿@using ProyectoFinal.Models
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Buscando</title>
+</head>
+<body>
+    <div> 
+        @{
+            foreach( Contenido item in ViewBag.Articulos)
+            {
+                <ul>@item.Nombre</ul>
+                <ul>@item.Descripcion</ul>
+            }
+        }
+    </div>
+</body>
+</html>

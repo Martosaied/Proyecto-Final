@@ -10,13 +10,14 @@ using System.Data.SqlClient;
 using System.Configuration;
 using System.Text;
 
-namespace CSASPNETSearchEngine
+namespace ProyectoFinal
 {
     /// <summary>
     /// This class is used to access database.
     /// </summary>
     public class Buscador
     {
+        public string KeyWords { get; set; }
         /// <summary>
         /// Retrieve an individual record from database.
         /// </summary>
@@ -52,10 +53,11 @@ namespace CSASPNETSearchEngine
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("select * from [Articles] where ");
+            sqlBuilder.Append("SELECT * from Contenido where ");
             foreach (string item in keywords)
             {
-                sqlBuilder.AppendFormat("([Title] like '%{0}%' or [Content] like '%{0}%') and ", item);
+                
+                sqlBuilder.AppendFormat("(Nombre like '{0}' or Descripcion like '{0}') and ", item);
             }
 
             // Remove unnecessary string " and " at the end of the command.
@@ -71,11 +73,11 @@ namespace CSASPNETSearchEngine
         /// </summary>
         /// <param name="cmdText">Command text</param>
         /// <returns>SqlCommand object</returns>
-        protected SqlCommand GenerateSqlCommand(string cmdText)
+        protected MySqlCommand GenerateSqlCommand(string cmdText)
         {
             // Read Connection String from web.config file.
-            SqlConnection conn = new SqlConnection(ConfigurationManager.ConnectionStrings["server=127.0.0.1; database=db; Uid=root; pwd=;"].ConnectionString);
-            SqlCommand cmd = new SqlCommand(cmdText, conn);
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlCommand cmd = new MySqlCommand(cmdText, conectar);
             cmd.Connection.Open();
             return cmd;
         }
@@ -86,13 +88,13 @@ namespace CSASPNETSearchEngine
         /// </summary>
         /// <param name="reader"></param>
         /// <returns></returns>
-        protected Contenido ReadArticle(SqlDataReader reader)
+        protected Contenido ReadArticle(MySqlDataReader reader)
         {
             Contenido article = new Contenido();
 
-            article.ID = (int)reader["ID"];
-            article.Nombre = (string)reader["nombre"];
-            article.Descripcion = (string)reader["descripcion"];
+            article.ID = (int)reader["IdContenido"];
+            article.Nombre = (string)reader["Nombre"];
+            article.Descripcion = (string)reader["Descripcion"];
 
             return article;
         }
@@ -106,10 +108,10 @@ namespace CSASPNETSearchEngine
         {
             List<Contenido> articles = new List<Contenido>();
 
-            SqlCommand cmd = GenerateSqlCommand(cmdText);
+            MySqlCommand cmd = GenerateSqlCommand(cmdText);
             using (cmd.Connection)
             {
-                SqlDataReader reader = cmd.ExecuteReader();
+                MySqlDataReader reader = cmd.ExecuteReader();
 
                 // Transform records to a list.
                 if (reader.HasRows)

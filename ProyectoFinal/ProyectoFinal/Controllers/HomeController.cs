@@ -9,7 +9,7 @@ namespace ProyectoFinal.Controllers
 {
     public class HomeController : Controller
     {
-        
+        protected List<string> keywords = new List<string>();
         public ActionResult Index()
         {
             return View();
@@ -96,6 +96,26 @@ namespace ProyectoFinal.Controllers
             }
         }
 
+        public ActionResult Buscar(object sender, EventArgs e,Buscador Buscado)
+        {
+            // Turn user input to a list of keywords.
+            string[] keywords = Buscado.KeyWords.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+
+            // The basic validation.
+            if (keywords.Length <= 0)
+            {
+                //lbAlert.Text = "Please input keyword.";
+                //return;
+            }
+            this.keywords = keywords.ToList();
+
+            // Do search operation.
+            Buscador dataAccess = new Buscador();
+            List<Contenido> list = dataAccess.Search(this.keywords);
+            ViewBag.Articulos = list;
+            return View("Buscando");
         }
+
+    }
 
     }

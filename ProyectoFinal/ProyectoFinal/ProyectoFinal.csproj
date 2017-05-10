@@ -168,6 +168,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SubirContenido.cshtml" />
     <Content Include="Views\Home\Subidas.cshtml" />
+    <Content Include="Views\Home\Buscando.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
