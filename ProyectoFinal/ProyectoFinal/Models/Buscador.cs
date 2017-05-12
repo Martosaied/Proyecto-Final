@@ -53,11 +53,11 @@ namespace ProyectoFinal
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT * from Contenido where ");
+            sqlBuilder.Append("SELECT contenido.* from contenido LEFT JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas where ");
             foreach (string item in keywords)
             {
                 
-                sqlBuilder.AppendFormat("(Nombre like '{0}' or Descripcion like '{0}') and ", item);
+                sqlBuilder.AppendFormat("(contenido.Nombre like '{0}%' or Descripcion like '{0}%'or escuelas.Nombre like '{0}%') and ", item);
             }
 
             // Remove unnecessary string " and " at the end of the command.
@@ -95,6 +95,10 @@ namespace ProyectoFinal
             article.ID = (int)reader["IdContenido"];
             article.Nombre = (string)reader["Nombre"];
             article.Descripcion = (string)reader["Descripcion"];
+            article.IdMateria = (int)reader["IdMateria"];
+            article.IdEscuelas = (int)reader["IdEscuela"];
+            article.Profesor = (string)reader["Profesor"];
+            article.IdUsuario = (int)reader["IdUsuario"];
 
             return article;
         }

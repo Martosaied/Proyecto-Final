@@ -146,6 +146,8 @@
     </Compile>
     <Compile Include="Models\Buscador.cs" />
     <Compile Include="Models\Contenido.cs" />
+    <Compile Include="Models\Escuelas.cs" />
+    <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
@@ -168,7 +170,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Home\SubirContenido.cshtml" />
     <Content Include="Views\Home\Subidas.cshtml" />
-    <Content Include="Views\Home\Buscando.cshtml" />
+    <Content Include="Views\Home\Resultados.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

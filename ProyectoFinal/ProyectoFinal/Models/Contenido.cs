@@ -16,6 +16,9 @@ namespace ProyectoFinal.Models
         public string Ruta { get; set; }
         public string Descripcion { get; set; }
         public int IdUsuario { get; set; }
+        public int IdEscuelas { get; set; }
+        public int IdMateria { get; set; }
+        public string Profesor { get; set; }
 
         public static MySqlConnection ObtenerConexion()
         {
@@ -28,8 +31,8 @@ namespace ProyectoFinal.Models
         {
             int retorno = 0;
 
-            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario) values ('{0}','{1}','{2}')",
-                            Contenido.Nombre, Contenido.Ruta, User.ID), Contenido.ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
+                            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor), Contenido.ObtenerConexion());
             retorno = comando.ExecuteNonQuery();
             return retorno;
         }

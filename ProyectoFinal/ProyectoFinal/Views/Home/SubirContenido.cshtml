@@ -23,17 +23,19 @@
         @using (Html.BeginForm("Subir", "Home", FormMethod.Post, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
         {
             <h2 class="form-signin-heading">Subir archivo</h2>
-            //<label for="inputEmail" class="sr-only">Email address</label>
             @Html.ValidationMessageFor(x => x.Nombre)<br />
             @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
 
             @Html.ValidationMessageFor(x => x.Ruta)<br />
-            //@(x => x.Apellido, new { @class = "form-control", placeholder = "Apellido" })
             @Html.TextBox("file", "", new { type = "file", @class = "form-control" }) 
-            //<input type="file" name="archivo" /> <input type="submit" value="Cargar" name="boton" />
 
+            @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", placeholder = "Descripcion" })
 
+            @Html.DropDownListFor(x => x.IdEscuelas, new SelectList(ViewBag.Escuelas,"ID","Nombre"))
 
+            @Html.DropDownListFor(x => x.IdMateria, new SelectList(ViewBag.Materia, "ID", "Nombre"))
+
+            @Html.TextBoxFor(x => x.Profesor, new { @class = "form-control" } )
             <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
         }
 

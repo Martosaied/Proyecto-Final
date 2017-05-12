@@ -1,0 +1,38 @@
+﻿@using ProyectoFinal.Models
+@{
+    ViewBag.title = "Resultados";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <title>Buscando</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registracion</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/main.css">
+</head>
+<body>
+    <div style="display:inline-block"> 
+        @{
+            foreach (Contenido item in ViewBag.Articulos)
+            {
+                <div class="row">
+                    <div class="col-sm-6 col-md-4">
+                        <div class="thumbnail">
+                            <img src="~/Content/Documentos/" alt="...">
+                            <div class="caption">
+                                <h3>@item.Nombre</h3>
+                                <p>@item.Descripcion</p>
+                                <p><a href="#" class="btn btn-primary" role="button">Descargar</a> <a href="#" class="btn btn-default" role="button">Vista previa</a></p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+    </div>
+</body>
+</html>

@@ -35,6 +35,12 @@ namespace ProyectoFinal.Controllers
         }
         public ActionResult AbrirSubir()
         {
+            List<Escuelas> ListEscuela = new List<Escuelas>();
+            ListEscuela = Escuelas.TraerEscuelas();
+            List<Materia> ListMateria = new List<Materia>();
+            ListMateria = Materia.TraerMaterias();
+            ViewBag.Escuelas = ListEscuela;
+            ViewBag.Materia = ListMateria;
             return View("SubirContenido");
         }
         public ActionResult Registracion(Usuario Registrando)
@@ -86,7 +92,7 @@ namespace ProyectoFinal.Controllers
                     Usuario.Logueado = true;
                     ViewBag.Usuario = User;
                     Usuario.usuarioConectado = User;
-                    return View("HomeUsuario", User);
+                    return View("HomeUsuario");
                 }
                 return View("Login");
             }
@@ -113,7 +119,7 @@ namespace ProyectoFinal.Controllers
             Buscador dataAccess = new Buscador();
             List<Contenido> list = dataAccess.Search(this.keywords);
             ViewBag.Articulos = list;
-            return View("Buscando");
+            return View("Resultados");
         }
 
     }
