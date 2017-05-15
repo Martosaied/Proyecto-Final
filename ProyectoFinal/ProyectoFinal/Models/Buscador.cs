@@ -12,20 +12,14 @@ using System.Text;
 
 namespace ProyectoFinal
 {
-    /// <summary>
-    /// This class is used to access database.
-    /// </summary>
+
     public class Buscador
     {
         public string KeyWords { get; set; }
-        /// <summary>
-        /// Retrieve an individual record from database.
-        /// </summary>
-        /// <param name="id">Record id</param>
-        /// <returns>A found record</returns>
+
         public Contenido GetArticle(int id)
         {
-            List<Contenido> articles = QueryList("select * from [Contenido] where [ID] = " + id.ToString());
+            List<Contenido> articles = CrearLista("select * from [Contenido] where [ID] = " + id.ToString());
 
             // Only return the first record.
             if (articles.Count > 0)
@@ -35,44 +29,30 @@ namespace ProyectoFinal
             return null;
         }
 
-        /// <summary>
-        /// Retrieve all records from database.
-        /// </summary>
-        /// <returns></returns>
+
         public List<Contenido> GetAll()
         {
-            return QueryList("select * from [Contenido]");
+            return CrearLista("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias");
         }
 
-        /// <summary>
-        /// Search records from database.
-        /// </summary>
-        /// <param name="keywords">the list of keywords</param>
-        /// <returns>all found records</returns>
+
         public List<Contenido> Search(List<string> keywords)
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT contenido.* from contenido LEFT JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas where ");
+            sqlBuilder.Append("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias where ");
             foreach (string item in keywords)
             {
                 
-                sqlBuilder.AppendFormat("(contenido.Nombre like '{0}%' or Descripcion like '{0}%'or escuelas.Nombre like '{0}%') and ", item);
+                sqlBuilder.AppendFormat("(contenido.Nombre like '{0}%' or Descripcion like '{0}%'or escuelas.Nombre like '{0}%' or Materias.Nombre like '{0}%' or Profesor like '{0}%') and ", item);
             }
 
             // Remove unnecessary string " and " at the end of the command.
             string sql = sqlBuilder.ToString(0, sqlBuilder.Length - 5);
 
-            return QueryList(sql);
+            return CrearLista(sql);
         }
 
-        #region Helpers
-
-        /// <summary>
-        /// Create a connected SqlCommand object.
-        /// </summary>
-        /// <param name="cmdText">Command text</param>
-        /// <returns>SqlCommand object</returns>
         protected MySqlCommand GenerateSqlCommand(string cmdText)
         {
             // Read Connection String from web.config file.
@@ -83,11 +63,7 @@ namespace ProyectoFinal
         }
 
 
-        /// <summary>
-        /// Create an Article object from a SqlDataReader object.
-        /// </summary>
-        /// <param name="reader"></param>
-        /// <returns></returns>
+
         protected Contenido ReadArticle(MySqlDataReader reader)
         {
             Contenido article = new Contenido();
@@ -95,24 +71,20 @@ namespace ProyectoFinal
             article.ID = (int)reader["IdContenido"];
             article.Nombre = (string)reader["Nombre"];
             article.Descripcion = (string)reader["Descripcion"];
-            article.IdMateria = (int)reader["IdMateria"];
-            article.IdEscuelas = (int)reader["IdEscuela"];
+            article.IdMateria = (string)reader["NombreMat"];
+            article.IdEscuelas = (string)reader["NombreEsc"];
             article.Profesor = (string)reader["Profesor"];
             article.IdUsuario = (int)reader["IdUsuario"];
 
             return article;
         }
 
-        /// <summary>
-        /// Excute a Sql command.
-        /// </summary>
-        /// <param name="cmdText">Command text</param>
-        /// <returns></returns>
-        protected List<Contenido> QueryList(string cmdText)
+
+        protected List<Contenido> CrearLista(string Comando)
         {
             List<Contenido> articles = new List<Contenido>();
 
-            MySqlCommand cmd = GenerateSqlCommand(cmdText);
+            MySqlCommand cmd = GenerateSqlCommand(Comando);
             using (cmd.Connection)
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
@@ -129,6 +101,5 @@ namespace ProyectoFinal
             return articles;
         }
 
-        #endregion
     }
 }

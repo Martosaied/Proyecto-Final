@@ -27,19 +27,29 @@
             @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre" })
 
             @Html.ValidationMessageFor(x => x.Ruta)<br />
-            @Html.TextBox("file", "", new { type = "file", @class = "form-control" }) 
+            @Html.TextBox("file", "", new { type = "file", @class = "form-control" })
 
+            @Html.ValidationMessageFor(x => x.Descripcion)<br />
             @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", placeholder = "Descripcion" })
 
-            @Html.DropDownListFor(x => x.IdEscuelas, new SelectList(ViewBag.Escuelas,"ID","Nombre"))
+            <div class="dropdown">
+                @Html.ValidationMessageFor(x => x.IdEscuelas)<br />
+                @Html.DropDownListFor(x => x.IdEscuelas, new SelectList(ViewBag.Escuelas, "ID", "Nombre"))
+            </div>
 
-            @Html.DropDownListFor(x => x.IdMateria, new SelectList(ViewBag.Materia, "ID", "Nombre"))
 
-            @Html.TextBoxFor(x => x.Profesor, new { @class = "form-control" } )
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Sign up</button>
-        }
+            <div class="dropdown">
+                @Html.ValidationMessageFor(x => x.IdMateria)<br />
+                @Html.DropDownListFor(x => x.IdMateria, new SelectList(ViewBag.Materia, "ID", "Nombre"))
+            </div>
 
-    </div> <!-- /container -->
+             @Html.ValidationMessageFor(x => x.Profesor)<br />
+             @Html.TextBoxFor(x => x.Profesor, new { @class = "form-control", placeholder = "Profesor" })
+
+                <button class="btn btn-lg btn-primary btn-block" type="submit">Subir</button>
+                }
+
+            </div> <!-- /container -->
     <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
 </body>
 </html>

@@ -12,6 +12,10 @@ namespace ProyectoFinal.Controllers
         protected List<string> keywords = new List<string>();
         public ActionResult Index()
         {
+            List<Contenido> ListaTodo = new List<Contenido>();
+            Buscador DA = new Buscador();
+            ListaTodo = DA.GetAll();
+            ViewBag.Articulos = ListaTodo;
             return View();
         }
 
@@ -92,6 +96,7 @@ namespace ProyectoFinal.Controllers
                     Usuario.Logueado = true;
                     ViewBag.Usuario = User;
                     Usuario.usuarioConectado = User;
+
                     return View("HomeUsuario");
                 }
                 return View("Login");

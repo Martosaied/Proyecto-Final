@@ -123,6 +123,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\MisCSS\homeUsuario.css" />
+    <Content Include="Content\MisCSS\LogReg.css" />
     <Content Include="Content\signin.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -171,6 +173,7 @@
     <Content Include="Views\Home\SubirContenido.cshtml" />
     <Content Include="Views\Home\Subidas.cshtml" />
     <Content Include="Views\Home\Resultados.cshtml" />
+    <Content Include="Views\Shared\LogReg.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

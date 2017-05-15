@@ -16,8 +16,8 @@ namespace ProyectoFinal.Models
         public string Ruta { get; set; }
         public string Descripcion { get; set; }
         public int IdUsuario { get; set; }
-        public int IdEscuelas { get; set; }
-        public int IdMateria { get; set; }
+        public string IdEscuelas { get; set; }
+        public string IdMateria { get; set; }
         public string Profesor { get; set; }
 
         public static MySqlConnection ObtenerConexion()
