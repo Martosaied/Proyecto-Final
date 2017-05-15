@@ -12,6 +12,8 @@ namespace ProyectoFinal.Models
     {
         public int ID { get; set; }
 
+        public string foto { get; set; }
+
         [Required(ErrorMessage = "Campo obligatorio")]
         public string Nombre { get; set; }
 
@@ -48,6 +50,8 @@ namespace ProyectoFinal.Models
             }
         }
 
+        
+
         public static MySqlConnection ObtenerConexion()
         {
             MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
@@ -60,7 +64,7 @@ namespace ProyectoFinal.Models
         public static int Registrar(Usuario Usuario)
         {
             int retorno = 0;
-            
+            Usuario.foto = "~/ Content / Documentos / defecto.png";
     MySqlCommand comando = new MySqlCommand(string.Format("Insert into usuarios (Nombre, Apellido, Email, Contraseña) values ('{0}','{1}','{2}', '{3}')",
                     Usuario.Nombre, Usuario.Apellido, Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
                     retorno = comando.ExecuteNonQuery();

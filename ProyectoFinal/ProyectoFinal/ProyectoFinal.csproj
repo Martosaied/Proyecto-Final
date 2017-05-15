@@ -123,6 +123,7 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Documentos\defecto.png" />
     <Content Include="Content\MisCSS\homeUsuario.css" />
     <Content Include="Content\MisCSS\LogReg.css" />
     <Content Include="Content\signin.css" />
@@ -182,7 +183,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
-    <Folder Include="Content\Documentos\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

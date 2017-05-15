@@ -17,9 +17,9 @@ namespace ProyectoFinal
     {
         public string KeyWords { get; set; }
 
-        public Contenido GetArticle(int id)
+        public  Contenido GetArticle(int id)
         {
-            List<Contenido> articles = CrearLista("select * from [Contenido] where [ID] = " + id.ToString());
+            List<Contenido> articles = CrearLista("select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias where contenido.IdUsuario = " + id);
 
             // Only return the first record.
             if (articles.Count > 0)

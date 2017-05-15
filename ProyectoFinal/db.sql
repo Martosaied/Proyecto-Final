@@ -1,10 +1,8 @@
-CREATE DATABASE  IF NOT EXISTS `db` /*!40100 DEFAULT CHARACTER SET latin1 */;
-USE `db`;
--- MySQL dump 10.13  Distrib 5.6.13, for Win32 (x86)
+-- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
 --
 -- Host: 127.0.0.1    Database: db
 -- ------------------------------------------------------
--- Server version	5.7.9
+-- Server version	5.5.24-log
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
@@ -38,7 +36,7 @@ CREATE TABLE `contenido` (
   KEY `IdEscuela_idx` (`IdEscuela`),
   KEY `IdMateria_idx` (`IdMateria`),
   CONSTRAINT `IdUsuario` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -47,7 +45,7 @@ CREATE TABLE `contenido` (
 
 LOCK TABLES `contenido` WRITE;
 /*!40000 ALTER TABLE `contenido` DISABLE KEYS */;
-INSERT INTO `contenido` VALUES (1,'asd','Matematica',1,'sadsad as sad sad msa s dsa dsa',1,1,'asd'),(2,'asd','Matematica',1,'asd',1,1,'asd'),(3,'~/Uploads/20170512110640-theodorohertzl.docx','asdasd',8,'asdasd',2,8,'asdasd');
+INSERT INTO `contenido` VALUES (1,'asd','Matematica',1,'sadsad as sad sad msa s dsa dsa',1,1,'asd'),(2,'asd','Matematica',1,'asd',1,1,'asd'),(3,'~/Uploads/20170512110640-theodorohertzl.docx','asdasd',8,'asdasd',2,8,'asdasd'),(4,'~/Uploads/20170514193719-aliot.docx','Lengua',8,'Cosas judias',2,8,'Judith Faerverguer'),(5,'~/Uploads/20170514202757-analisis de mercado.docx','Resumen SSI',8,'Alto resu,en papa',6,8,'gaby');
 /*!40000 ALTER TABLE `contenido` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -135,4 +133,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-05-12 11:56:33
+-- Dump completed on 2017-05-14 22:47:01

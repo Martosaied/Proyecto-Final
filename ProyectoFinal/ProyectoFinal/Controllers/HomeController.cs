@@ -47,6 +47,13 @@ namespace ProyectoFinal.Controllers
             ViewBag.Materia = ListMateria;
             return View("SubirContenido");
         }
+
+        public ActionResult AbrirSubidas()
+        {
+            Buscador Buscado = new Buscador();
+           // ViewBag.ListaArticulos = Buscado.GetArticle(Usuario.usuarioConectado.ID);
+            return View("Subidas");
+        }
         public ActionResult Registracion(Usuario Registrando)
         {
             if (ModelState.IsValid)
@@ -76,6 +83,8 @@ namespace ProyectoFinal.Controllers
                     Cont.Ruta = "~/Uploads/" + archivo;
                     int Correcto = Contenido.Subir(Cont, Usuario.usuarioConectado);        
                     file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
+                    Buscador Buscado = new Buscador();
+                    ViewBag.ListaArticulos = Buscado.GetArticle(Usuario.usuarioConectado.ID);
                     return View("Subidas");
                 }
                 return View("SubirContenido");
