@@ -34,11 +34,11 @@
         {
             <h2 class="form-signin-heading">Please sign in</h2>
             @Html.LabelFor(x => x.Email)
-            @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control" })
+            @Html.TextBoxFor(x => x.Email, new { type = "email", @class = "form-control" , required = "required" })
           
 
             @Html.LabelFor(x => x.Contraseña)
-            @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control", type = "password" })
+            @Html.PasswordFor(x => x.Contraseña, new { @class = "form-control", type = "password" , required = "required" })
             
 
             <div class="checkbox">
