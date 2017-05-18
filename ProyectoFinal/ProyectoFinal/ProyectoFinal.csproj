@@ -149,6 +149,7 @@
     </Compile>
     <Compile Include="Models\Buscador.cs" />
     <Compile Include="Models\Contenido.cs" />
+    <Compile Include="Models\DataBaseAccess.cs" />
     <Compile Include="Models\Escuelas.cs" />
     <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\Usuario.cs" />
