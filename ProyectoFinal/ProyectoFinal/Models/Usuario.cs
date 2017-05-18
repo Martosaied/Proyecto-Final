@@ -54,7 +54,7 @@ namespace ProyectoFinal.Models
 
         public static MySqlConnection ObtenerConexion()
         {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=root;");
             conectar.Open();
             return conectar;
         }

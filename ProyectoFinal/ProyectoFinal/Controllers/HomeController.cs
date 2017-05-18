@@ -15,7 +15,7 @@ namespace ProyectoFinal.Controllers
             List<Contenido> ListaTodo = new List<Contenido>();
             Buscador DA = new Buscador();
             ListaTodo = DA.GetAll();
-            ViewBag.Articulos = ListaTodo;
+            ViewBag.ListaArticulos = ListaTodo;
             return View();
         }
 
@@ -51,7 +51,13 @@ namespace ProyectoFinal.Controllers
         public ActionResult AbrirSubidas()
         {
             Buscador Buscado = new Buscador();
-           // ViewBag.ListaArticulos = Buscado.GetArticle(Usuario.usuarioConectado.ID);
+            ViewBag.ListaArticulos = Buscado.GetArticle(Usuario.usuarioConectado.ID);
+            if(ViewBag.ListaArticulos == null)
+            {
+                List<Contenido> ListVacia = new List<Contenido>();
+                ViewBag.ListaArticulos = ListVacia;
+                return View("Subidas");
+            }
             return View("Subidas");
         }
         public ActionResult Registracion(Usuario Registrando)
@@ -122,11 +128,6 @@ namespace ProyectoFinal.Controllers
             string[] keywords = Buscado.KeyWords.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
             // The basic validation.
-            if (keywords.Length <= 0)
-            {
-                //lbAlert.Text = "Please input keyword.";
-                //return;
-            }
             this.keywords = keywords.ToList();
 
             // Do search operation.

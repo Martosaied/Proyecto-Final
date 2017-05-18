@@ -17,14 +17,14 @@ namespace ProyectoFinal
     {
         public string KeyWords { get; set; }
 
-        public  Contenido GetArticle(int id)
+        public List<Contenido> GetArticle(int id)
         {
             List<Contenido> articles = CrearLista("select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias where contenido.IdUsuario = " + id);
 
             // Only return the first record.
             if (articles.Count > 0)
             {
-                return articles[0];
+                return articles;
             }
             return null;
         }
@@ -56,7 +56,7 @@ namespace ProyectoFinal
         protected MySqlCommand GenerateSqlCommand(string cmdText)
         {
             // Read Connection String from web.config file.
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=root;");
             MySqlCommand cmd = new MySqlCommand(cmdText, conectar);
             cmd.Connection.Open();
             return cmd;

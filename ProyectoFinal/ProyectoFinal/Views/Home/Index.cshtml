@@ -16,7 +16,7 @@
 </head>
 <body>
     <div>
-        <div class="btn-group btn-group-justified" role="group" aria-label="...">
+        <div class="btn-group btn-group-justified" role="group" aria-label="..." style="width:100%">
             <div class="btn-group" role="group">
                 <button type="button" class="btn btn-default">Mas recientes</button>
             </div>
@@ -28,24 +28,7 @@
             </div>
         </div>
         <div class="row" style="margin:1%;">
-            @{
-                foreach (Contenido item in ViewBag.Articulos)
-                {
-                    <div class="col-sm-6 col-md-4" style="margin-bottom:15px;">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>@item.Nombre</h3>
-                                <p>@item.Descripcion</p>
-                                <h4>@item.IdEscuelas</h4>
-                                <h4>@item.IdMateria</h4>
-                                <h4>@item.Profesor</h4>
-                                <p><a href=@item.Ruta class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                            </div>
-                        </div>
-                    </div>
-
-                }
-            }
+            @Html.Partial("_ContentView");  
         </div>
         
     </div>

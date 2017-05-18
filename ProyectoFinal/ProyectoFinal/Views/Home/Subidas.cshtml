@@ -16,24 +16,7 @@
 <body>
     <div>
         <div class="row" style="margin:1%;">
-            @{
-                foreach (Contenido item in ViewBag.ListaArticulos)
-                {
-                    <div class="col-sm-6 col-md-4">
-                        <div class="thumbnail">
-                            <div class="caption">
-                                <h3>@item.Nombre</h3>
-                                <p>@item.Descripcion</p>
-                                <h4>@item.IdEscuelas</h4>
-                                <h4>@item.IdMateria</h4>
-                                <h4>@item.Profesor</h4>
-                                <p><a href=@item.Ruta class="btn btn-primary" role="button">Button</a> <a href="#" class="btn btn-default" role="button">Button</a></p>
-                            </div>
-                        </div>
-                    </div>
-
-                }
-            }
+            @Html.Partial("_ContentView");         
         </div>
     </div>
 </body>
