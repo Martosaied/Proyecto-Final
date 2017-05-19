@@ -2,12 +2,12 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
-using System.ComponentModel.DataAnnotations;
 using MySql.Data.MySqlClient;
+
 
 namespace ProyectoFinal.Models
 {
-    public class Escuelas
+    public class TipoContenido
     {
         public int ID { get; set; }
         public string Nombre { get; set; }
@@ -18,23 +18,22 @@ namespace ProyectoFinal.Models
             conectar.Open();
             return conectar;
         }
-        public static List<Escuelas> TraerEscuelas()
+        public static List<TipoContenido> TraerTipoContenidos()
         {
-            List<Escuelas> ListEsc = new List<Escuelas>();
-            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from escuelas"), ObtenerConexion());
+            List<TipoContenido> ListMat = new List<TipoContenido>();
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from niveleducativo"), ObtenerConexion());
             comando.ExecuteNonQuery();
             MySqlDataReader reader = comando.ExecuteReader();
-            Escuelas Escuela = new Escuelas();
+            TipoContenido TipoContenido = new TipoContenido();
             while (reader.Read())
             {
-                Escuela = new Escuelas();
-                Escuela.ID = (int)reader["IdEscuelas"];
-                Escuela.Nombre = reader["Nombre"].ToString();
-                ListEsc.Add(Escuela);
+                TipoContenido = new TipoContenido();
+                TipoContenido.ID = (int)reader["IdNivel"];
+                TipoContenido.Nombre = reader["NombreNivel"].ToString();
+                ListMat.Add(TipoContenido);
             }
-            return ListEsc;
+            return ListMat;
 
         }
-
     }
 }

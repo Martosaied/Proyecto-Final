@@ -125,7 +125,6 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\Documentos\defecto.png" />
     <Content Include="Content\MisCSS\homeUsuario.css" />
-    <Content Include="Content\MisCSS\LogReg.css" />
     <Content Include="Content\signin.css" />
     <Content Include="Content\Site.css" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
@@ -137,6 +136,7 @@
     <None Include="scripts\jquery-1.10.2.intellisense.js" />
     <Content Include="scripts\jquery-1.10.2.js" />
     <Content Include="scripts\jquery-1.10.2.min.js" />
+    <Content Include="scripts\MisScripts\slide-panel.js" />
     <Content Include="scripts\modernizr-2.6.2.js" />
     <Content Include="Web.config" />
     <Content Include="Views\Home\RegistradoExito.cshtml" />
@@ -152,6 +152,8 @@
     <Compile Include="Models\DataBaseAccess.cs" />
     <Compile Include="Models\Escuelas.cs" />
     <Compile Include="Models\Materia.cs" />
+    <Compile Include="Models\NivelEducativo.cs" />
+    <Compile Include="Models\TipoContenido.cs" />
     <Compile Include="Models\Usuario.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>

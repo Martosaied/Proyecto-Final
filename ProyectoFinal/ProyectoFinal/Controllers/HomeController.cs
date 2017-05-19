@@ -39,10 +39,21 @@ namespace ProyectoFinal.Controllers
         }
         public ActionResult AbrirSubir()
         {
+
+            List<TipoContenido> ListTipodecont = new List<TipoContenido>();
+            ListTipodecont = TipoContenido.TraerTipoContenidos();
+
+            List<NivelEducativo> ListNivelEdu = new List<NivelEducativo>();
+            ListNivelEdu = NivelEducativo.TraerNivelEducativo();
+
             List<Escuelas> ListEscuela = new List<Escuelas>();
             ListEscuela = Escuelas.TraerEscuelas();
+
             List<Materia> ListMateria = new List<Materia>();
             ListMateria = Materia.TraerMaterias();
+
+            ViewBag.TipodeCont = ListTipodecont;
+            ViewBag.NivelEdu = ListNivelEdu;
             ViewBag.Escuelas = ListEscuela;
             ViewBag.Materia = ListMateria;
             return View("SubirContenido");
@@ -124,16 +135,24 @@ namespace ProyectoFinal.Controllers
 
         public ActionResult Buscar(object sender, EventArgs e,Buscador Buscado)
         {
-            // Turn user input to a list of keywords.
-            string[] keywords = Buscado.KeyWords.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
+            string vkeywords = Buscado.KeyWords;
+            if (vkeywords == null)
+            {
+                ViewBag.ListaArticulos = Buscado.GetAll();
+            }
+            else
+            {
+                // Turn user input to a list of keywords.
+                string[] keywords = Buscado.KeyWords.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-            // The basic validation.
-            this.keywords = keywords.ToList();
+                this.keywords = keywords.ToList();
 
-            // Do search operation.
-            Buscador dataAccess = new Buscador();
-            List<Contenido> list = dataAccess.Search(this.keywords);
-            ViewBag.Articulos = list;
+                // Do search operation.
+                Buscador dataAccess = new Buscador();
+                List<Contenido> list = dataAccess.Search(this.keywords);
+                ViewBag.ListaArticulos = list;
+                
+            }
             return View("Resultados");
         }
 

@@ -18,6 +18,9 @@ namespace ProyectoFinal.Models
         public int IdUsuario { get; set; }
         public string IdEscuelas { get; set; }
         public string IdMateria { get; set; }
+        public string IdTipodeCont { get; set; }
+        public string IdNivelEdu { get; set; }
+
         public string Profesor { get; set; }
 
         public static MySqlConnection ObtenerConexion()
@@ -30,9 +33,8 @@ namespace ProyectoFinal.Models
         public static int Subir(Contenido Contenido,Usuario User)
         {
             int retorno = 0;
-
-            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}')",
-                            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor), Contenido.ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor, NivelEdu,TipoCont) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}', '{7}', '{8}')",
+            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor, Contenido.IdNivelEdu, Contenido.IdTipodeCont), Contenido.ObtenerConexion());
             retorno = comando.ExecuteNonQuery();
             return retorno;
         }

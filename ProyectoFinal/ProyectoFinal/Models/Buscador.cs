@@ -19,7 +19,7 @@ namespace ProyectoFinal
 
         public List<Contenido> GetArticle(int id)
         {
-            List<Contenido> articles = CrearLista("select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias where contenido.IdUsuario = " + id);
+            List<Contenido> articles = CrearLista("select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON contenido.TipoCont = tipodecontenido.IdTipodeCont where contenido.IdUsuario = " + id);
 
             // Only return the first record.
             if (articles.Count > 0)
@@ -32,7 +32,13 @@ namespace ProyectoFinal
 
         public List<Contenido> GetAll()
         {
-            return CrearLista("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias");
+            return CrearLista("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
+                + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor," +
+                "niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo  from contenido " +
+                " INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON " 
+                + " contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON "+
+                " contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON "+
+                "contenido.TipoCont = tipodecontenido.IdTipodecont ");
         }
 
 
@@ -40,11 +46,17 @@ namespace ProyectoFinal
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias where ");
+            sqlBuilder.Append("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
+                +"contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor,"
+                +" niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo from contenido "
+                +"INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria "
+                +"= materias.IdMaterias INNER JOIN niveleducativo ON contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN "
+                +"tipodecontenido ON contenido.TipoCont = tipodecontenido.IdTipodeCont  where ");
+
             foreach (string item in keywords)
             {
                 
-                sqlBuilder.AppendFormat("(contenido.Nombre like '{0}%' or Descripcion like '{0}%'or escuelas.Nombre like '{0}%' or Materias.Nombre like '{0}%' or Profesor like '{0}%') and ", item);
+                sqlBuilder.AppendFormat("(contenido.Nombre like '%{0}%' or Descripcion like '%{0}%'or escuelas.Nombre like '%{0}%' or Materias.Nombre like '%{0}%' or Profesor like '%{0}%' or niveleducativo.NombreNivel like '%{0}%' or tipodecontenido.NombreTipo like '%{0}%') and ", item);
             }
 
             // Remove unnecessary string " and " at the end of the command.
@@ -64,6 +76,8 @@ namespace ProyectoFinal
             article.IdEscuelas = (string)reader["NombreEsc"];
             article.Profesor = (string)reader["Profesor"];
             article.IdUsuario = (int)reader["IdUsuario"];
+            article.IdNivelEdu = (string)reader["NombreNivel"];
+            article.IdTipodeCont = (string)reader["NombreTipo"];
 
             return article;
         }

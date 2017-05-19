@@ -27,7 +27,7 @@ namespace ProyectoFinal.Models
             Materia Materia = new Materia();
             while (reader.Read())
             {
-                reader.Read();
+                Materia = new Materia();
                 Materia.ID = (int)reader["IdMaterias"];
                 Materia.Nombre = reader["Nombre"].ToString();
                 ListMat.Add(Materia);
