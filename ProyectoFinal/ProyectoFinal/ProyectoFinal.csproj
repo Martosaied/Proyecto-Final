@@ -178,6 +178,7 @@
     <Content Include="Views\Home\Subidas.cshtml" />
     <Content Include="Views\Home\Resultados.cshtml" />
     <Content Include="Views\Shared\_ContentView.cshtml" />
+    <Content Include="Views\Shared\_DatosView.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
