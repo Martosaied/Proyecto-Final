@@ -19,18 +19,13 @@
     <link href="../../assets/css/ie10-viewport-bug-workaround.css" rel="stylesheet">
     <link href="~/Content/signin.css" rel="stylesheet">
     <script src="../../assets/js/ie-emulation-modes-warning.js"></script>
-    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
-    <!--[if lt IE 9]>
-      <script src="https://oss.maxcdn.com/html5shiv/3.7.3/html5shiv.min.js"></script>
-      <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
-    <![endif]-->
 </head>
 
 <body  style="padding-top:0px;">
 
     <div class="container">
 
-        @using (Html.BeginForm("Login", "Home", FormMethod.Post, new { @class = "form-signin", role = "form" }))
+        @using (Html.BeginForm("Login", "Usuario", FormMethod.Post, new { @class = "form-signin", role = "form" }))
         {
             <h2 class="form-signin-heading">Please sign in</h2>
             @Html.LabelFor(x => x.Email)

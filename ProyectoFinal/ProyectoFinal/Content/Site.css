@@ -1,37 +1,7 @@
-﻿
-body {
-    padding-bottom: 20px;
+﻿.nasadvbar-brand{
+    color:white;
 }
-
-/* Set padding to keep content from hitting the edges */
-.body-content {
-    padding-left: 5px;
-    padding-right: 5px;
+.btn-logpart {
+    margin-left: 1% !important;
+    margin-right: 1% !important;
 }
-
-/* Set width on the form input elements since they're 100% wide by default */
-input,
-select,
-textarea {
-    max-width: 280px;
-}
-
-.navbar-brand {
-    float:right;
-}
-
-.navbar-header{
-    width: 90%;
-}
-
-.navbar-mia{
-    background-color:#cb3535 !important;
-
-}
-.font-color {
-        color:#e9e2e2 !important;
-}
-
-
-
-

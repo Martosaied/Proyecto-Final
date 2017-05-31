@@ -21,15 +21,15 @@ namespace ProyectoFinal.Models
         public static List<TipoContenido> TraerTipoContenidos()
         {
             List<TipoContenido> ListMat = new List<TipoContenido>();
-            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from niveleducativo"), ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from tipodecontenido"), ObtenerConexion());
             comando.ExecuteNonQuery();
             MySqlDataReader reader = comando.ExecuteReader();
             TipoContenido TipoContenido = new TipoContenido();
             while (reader.Read())
             {
                 TipoContenido = new TipoContenido();
-                TipoContenido.ID = (int)reader["IdNivel"];
-                TipoContenido.Nombre = reader["NombreNivel"].ToString();
+                TipoContenido.ID = (int)reader["IdTipodecont"];
+                TipoContenido.Nombre = reader["NombreTipo"].ToString();
                 ListMat.Add(TipoContenido);
             }
             return ListMat;

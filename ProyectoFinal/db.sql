@@ -1,28 +1,33 @@
--- MySQL dump 10.13  Distrib 5.7.17, for Win64 (x86_64)
+-- phpMyAdmin SQL Dump
+-- version 4.5.2
+-- http://www.phpmyadmin.net
 --
--- Host: 127.0.0.1    Database: db
--- ------------------------------------------------------
--- Server version	5.5.24-log
+-- Servidor: 127.0.0.1
+-- Tiempo de generación: 26-05-2017 a las 17:23:14
+-- Versión del servidor: 5.7.9
+-- Versión de PHP: 5.6.16
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+SET time_zone = "+00:00";
+
 
 /*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
 /*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
 /*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
+/*!40101 SET NAMES utf8mb4 */;
 
 --
--- Table structure for table `contenido`
+-- Base de datos: `db`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `contenido`
 --
 
 DROP TABLE IF EXISTS `contenido`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `contenido` (
+CREATE TABLE IF NOT EXISTS `contenido` (
   `idContenido` int(11) NOT NULL AUTO_INCREMENT,
   `Ruta` text NOT NULL,
   `Nombre` text NOT NULL,
@@ -31,106 +36,166 @@ CREATE TABLE `contenido` (
   `IdEscuela` int(11) DEFAULT NULL,
   `IdMateria` int(11) DEFAULT NULL,
   `Profesor` text,
+  `NivelEdu` text NOT NULL,
+  `TipoCont` text NOT NULL,
   PRIMARY KEY (`idContenido`),
   KEY `IdUsuario_idx` (`IdUsuario`),
   KEY `IdEscuela_idx` (`IdEscuela`),
-  KEY `IdMateria_idx` (`IdMateria`),
-  CONSTRAINT `IdUsuario` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
+  KEY `IdMateria_idx` (`IdMateria`)
+) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
 
 --
--- Dumping data for table `contenido`
+-- Volcado de datos para la tabla `contenido`
 --
 
-LOCK TABLES `contenido` WRITE;
-/*!40000 ALTER TABLE `contenido` DISABLE KEYS */;
-INSERT INTO `contenido` VALUES (1,'asd','Matematica',1,'sadsad as sad sad msa s dsa dsa',1,1,'asd'),(2,'asd','Matematica',1,'asd',1,1,'asd'),(3,'~/Uploads/20170512110640-theodorohertzl.docx','asdasd',8,'asdasd',2,8,'asdasd'),(4,'~/Uploads/20170514193719-aliot.docx','Lengua',8,'Cosas judias',2,8,'Judith Faerverguer'),(5,'~/Uploads/20170514202757-analisis de mercado.docx','Resumen SSI',8,'Alto resu,en papa',6,8,'gaby');
-/*!40000 ALTER TABLE `contenido` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `contenido` (`idContenido`, `Ruta`, `Nombre`, `IdUsuario`, `Descripcion`, `IdEscuela`, `IdMateria`, `Profesor`, `NivelEdu`, `TipoCont`) VALUES
+(1, 'asd', 'Matematica', 1, 'sadsad as sad sad msa s dsa dsa', 1, 1, 'asd', '1', '1'),
+(2, 'asd', 'Matematica', 1, 'asd', 1, 1, 'asd', '2', '3'),
+(3, '~/Uploads/20170512110640-theodorohertzl.docx', 'asdasd', 8, 'asdasd', 2, 8, 'asdasd', '1', '2'),
+(4, '~/Uploads/20170514193719-aliot.docx', 'Lengua', 8, 'Cosas judias', 2, 8, 'Judith Faerverguer', '1', '1'),
+(5, '~/Uploads/20170514202757-analisis de mercado.docx', 'Resumen SSI', 8, 'Alto resu,en papa', 6, 8, 'gaby', '1', '2'),
+(6, '~/Uploads/20170519083542-theodorohertzl.docx', 'Tarea Hertzl', 8, 'Tarea de judia', 1, 1, 'Judith', '', '');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `escuelas`
+-- Estructura de tabla para la tabla `escuelas`
 --
 
 DROP TABLE IF EXISTS `escuelas`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `escuelas` (
+CREATE TABLE IF NOT EXISTS `escuelas` (
   `idEscuelas` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idEscuelas`)
 ) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `escuelas`
+-- Volcado de datos para la tabla `escuelas`
 --
 
-LOCK TABLES `escuelas` WRITE;
-/*!40000 ALTER TABLE `escuelas` DISABLE KEYS */;
-INSERT INTO `escuelas` VALUES (1,'ORT'),(2,'Buber'),(3,'Scholem'),(4,'Pellegrini'),(5,'Nacional'),(6,'Weitzman');
-/*!40000 ALTER TABLE `escuelas` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `escuelas` (`idEscuelas`, `Nombre`) VALUES
+(1, 'ORT'),
+(2, 'Buber'),
+(3, 'Scholem'),
+(4, 'Pellegrini'),
+(5, 'Nacional'),
+(6, 'Weitzman');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `materias`
+-- Estructura de tabla para la tabla `materias`
 --
 
 DROP TABLE IF EXISTS `materias`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `materias` (
+CREATE TABLE IF NOT EXISTS `materias` (
   `idmaterias` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) NOT NULL,
   PRIMARY KEY (`idmaterias`)
 ) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
-/*!40101 SET character_set_client = @saved_cs_client */;
 
 --
--- Dumping data for table `materias`
+-- Volcado de datos para la tabla `materias`
 --
 
-LOCK TABLES `materias` WRITE;
-/*!40000 ALTER TABLE `materias` DISABLE KEYS */;
-INSERT INTO `materias` VALUES (1,'Matematica'),(2,'Lengua'),(3,'Programacion'),(4,'Tecnologia'),(5,'Sociales'),(6,'Etica'),(7,'Salud'),(8,'Quimica');
-/*!40000 ALTER TABLE `materias` ENABLE KEYS */;
-UNLOCK TABLES;
+INSERT INTO `materias` (`idmaterias`, `Nombre`) VALUES
+(1, 'Matematica'),
+(2, 'Lengua'),
+(3, 'Programacion'),
+(4, 'Tecnologia'),
+(5, 'Sociales'),
+(6, 'Etica'),
+(7, 'Salud'),
+(8, 'Quimica');
+
+-- --------------------------------------------------------
 
 --
--- Table structure for table `usuarios`
+-- Estructura de tabla para la tabla `niveleducativo`
+--
+
+DROP TABLE IF EXISTS `niveleducativo`;
+CREATE TABLE IF NOT EXISTS `niveleducativo` (
+  `IdNivel` int(11) NOT NULL AUTO_INCREMENT,
+  `NombreNivel` text NOT NULL,
+  PRIMARY KEY (`IdNivel`)
+) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `niveleducativo`
+--
+
+INSERT INTO `niveleducativo` (`IdNivel`, `NombreNivel`) VALUES
+(1, 'Secundario'),
+(2, 'Universitario'),
+(3, 'Terciario');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `tipodecontenido`
+--
+
+DROP TABLE IF EXISTS `tipodecontenido`;
+CREATE TABLE IF NOT EXISTS `tipodecontenido` (
+  `IdTipodecont` int(11) NOT NULL AUTO_INCREMENT,
+  `NombreTipo` text NOT NULL,
+  PRIMARY KEY (`IdTipodecont`)
+) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+
+--
+-- Volcado de datos para la tabla `tipodecontenido`
+--
+
+INSERT INTO `tipodecontenido` (`IdTipodecont`, `NombreTipo`) VALUES
+(1, 'Resumen'),
+(2, 'Prueba'),
+(3, 'Libro'),
+(4, 'Apuntes'),
+(5, 'Trabajos practicos'),
+(6, 'Otros');
+
+-- --------------------------------------------------------
+
+--
+-- Estructura de tabla para la tabla `usuarios`
 --
 
 DROP TABLE IF EXISTS `usuarios`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
-CREATE TABLE `usuarios` (
+CREATE TABLE IF NOT EXISTS `usuarios` (
   `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
   `Nombre` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `Apellido` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `Email` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `Contraseña` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
-/*!40101 SET character_set_client = @saved_cs_client */;
+) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
--- Dumping data for table `usuarios`
+-- Volcado de datos para la tabla `usuarios`
 --
 
-LOCK TABLES `usuarios` WRITE;
-/*!40000 ALTER TABLE `usuarios` DISABLE KEYS */;
-INSERT INTO `usuarios` VALUES (1,'Martin','Saied','martusaied@gmail.com','cacaca'),(3,'Uriel','Bacher','uribacher@gmail.com','hola123'),(4,'roberto','roberto','roberto@roberto.com','roberto'),(5,'ma','sad','sad@asd','asd'),(6,'asd','asd','asd@asd','asdasd'),(7,'asdas','asdasd','asdasdqsad@s','asdasdasd'),(8,'Ezequiel','Weicman','ezeweic@gmail.com','Cacacaca1');
-/*!40000 ALTER TABLE `usuarios` ENABLE KEYS */;
-UNLOCK TABLES;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+INSERT INTO `usuarios` (`idUsuario`, `Nombre`, `Apellido`, `Email`, `Contraseña`) VALUES
+(1, 'Martin', 'Saied', 'martusaied@gmail.com', 'cacaca'),
+(3, 'Uriel', 'Bacher', 'uribacher@gmail.com', 'hola123'),
+(4, 'roberto', 'roberto', 'roberto@roberto.com', 'roberto'),
+(5, 'ma', 'sad', 'sad@asd', 'asd'),
+(6, 'asd', 'asd', 'asd@asd', 'asdasd'),
+(7, 'asdas', 'asdasd', 'asdasdqsad@s', 'asdasdasd'),
+(8, 'Ezequiel', 'Weicman', 'ezeweic@gmail.com', 'Cacacaca1'),
+(9, 'yo', 'ewrwer', 'adkmn@asdm.cop', 'asdasdasd1'),
+(10, 'asdasd', 'adsasd', 'asdasd@aoisd.asd', 'Martinasd1');
 
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+--
+-- Restricciones para tablas volcadas
+--
+
+--
+-- Filtros para la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  ADD CONSTRAINT `IdUsuario` FOREIGN KEY (`IdUsuario`) REFERENCES `usuarios` (`idUsuario`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
-
--- Dump completed on 2017-05-14 22:47:01

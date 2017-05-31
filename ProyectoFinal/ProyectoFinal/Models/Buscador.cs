@@ -91,8 +91,6 @@ namespace ProyectoFinal
             using (cmd.Connection)
             {
                 MySqlDataReader reader = cmd.ExecuteReader();
-
-                // Transform records to a list.
                 if (reader.HasRows)
                 {
                     while (reader.Read())

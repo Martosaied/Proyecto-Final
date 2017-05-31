@@ -3,34 +3,34 @@
 
 @{Usuario usuario = ViewBag.Usuario; }
 
-@if (Usuario.Logueado)
+@if (Usuario.usuarioConectado != null)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "pull-xs-right" }))
     {
         @Html.AntiForgeryToken()
 
-        <ul class="nav navbar-nav navbar-right">
-
-
-            <li class="dropdown">
-                <a href="#" class="dropdown-toggle" data-toggle="dropdown">
-                    @Usuario.usuarioConectado.Nombre <b class="caret"></b>
-                </a>
-                <ul class="dropdown-menu">
-                    <li><a href="#">Favoritos</a></li>
-                    <li>@Html.ActionLink("Subidas", "AbrirSubidas", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                    <li><a href="#">Descargas</a></li>
-                    <li class="divider"></li>
-                    <li>@Html.ActionLink("Log Off", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-                </ul>
-            <li>@Html.ActionLink("Subir", "AbrirSubir", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <ul class="row">
+            <li  class="nav-link">
+                <div class="btn-group">
+                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
+                        @Usuario.usuarioConectado.Nombre <span class="caret"></span>
+                    </button>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#">Mi Perfil</a></li>
+                        <li>@Html.ActionLink("Mis subidas", "AbrirSubidas", "Usuario", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })</li>
+                        <li class="divider"></li>
+                        <li>@Html.ActionLink("Log Off", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })</li>
+                    </ul>
+                </div>
+            </li> 
+            <li class="nav-link">
+                <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AbrirSubir", "Contenido")'">Subir</button>
+            </li>
         </ul>
     }
 }
 else
 {
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("Registrarse", "AbrirRegistracion", "Home", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Log in", "AbrirLogin", "Home", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
+        <li>@Html.ActionLink("Registrarse", "AbrirRegistracion", "Home", routeValues: null, htmlAttributes: new {  @class ="btn-logpart btn navbar-btn btn-xs" })</li>
+        <li>@Html.ActionLink("Log in", "AbrirLogin", "Home", routeValues: null, htmlAttributes: new {  @class= "btn-logpart btn navbar-btn btn-xs" })</li>
 }
