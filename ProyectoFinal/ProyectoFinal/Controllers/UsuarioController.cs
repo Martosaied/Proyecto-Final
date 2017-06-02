@@ -11,8 +11,8 @@ namespace ProyectoFinal.Controllers
     {
         public ActionResult AbrirSubidas()
         {
-            Buscador Buscado = new Buscador();
-            ViewBag.ListaArticulos = Buscado.GetArticle(Usuario.usuarioConectado.ID);
+            Contenido Buscado = new Contenido();
+            ViewBag.ListaArticulos = Buscado.GetArticleUser(Usuario.usuarioConectado.ID);
             if (ViewBag.ListaArticulos == null)
             {
                 List<Contenido> ListVacia = new List<Contenido>();

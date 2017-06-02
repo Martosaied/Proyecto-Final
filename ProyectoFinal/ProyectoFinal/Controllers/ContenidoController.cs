@@ -21,7 +21,7 @@ namespace ProyectoFinal.Controllers
                     Cont.Ruta = "~/Uploads/" + archivo;
                     int Correcto = Contenido.Subir(Cont, Usuario.usuarioConectado);
                     file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
-                    Buscador Buscado = new Buscador();
+                    Contenido Buscado = new Contenido();
                     ViewBag.ListaArticulos = Buscado.GetAll();
                     return View("~/Views/Home/Index.cshtml");
                 }
@@ -31,6 +31,15 @@ namespace ProyectoFinal.Controllers
             {
                 return View("~/Views/Contenido/SubirContenido.cshtml");
             }
+        }
+
+        public ActionResult VerMas(int cont)
+        {
+            Contenido selected = new Contenido();
+            selected = selected.GetOneArticle(cont);
+            ViewBag.URL = "http://docs.google.com/viewer?url=" + selected.Ruta + "&embedded=true";
+            ViewBag.Title = selected.Nombre;
+            return View("~/Views/Contenido/VerMas.cshtml", selected);//porfavor
         }
 
         public ActionResult AbrirSubir()
@@ -55,10 +64,29 @@ namespace ProyectoFinal.Controllers
             return View("SubirContenido");
         }
 
-        public PartialViewResult TraerSeleccionado(Contenido cont)
+        protected List<string> keywords = new List<string>();
+        public ActionResult Buscar(object sender, EventArgs e, Contenido Buscado)
         {
+            string vkeywords = Buscado.KeyWords;
+            if (vkeywords == null)
+            {
+                ViewBag.ListaArticulos = Buscado.GetAll();
+            }
+            else
+            {
+                // Turn user input to a list of keywords.
+                string[] keywords = Buscado.KeyWords.Split(new string[] { " " }, StringSplitOptions.RemoveEmptyEntries);
 
-            return PartialView("_DatosView", cont);
+                this.keywords = keywords.ToList();
+
+                // Do search operation.
+                Contenido dataAccess = new Contenido();
+                List<Contenido> list = dataAccess.Search(this.keywords);
+                ViewBag.ListaArticulos = list;
+
+            }
+            return View("Resultados");
         }
+
     }
 }

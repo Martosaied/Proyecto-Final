@@ -1,0 +1,34 @@
+﻿@using ProyectoFinal.Models
+@model Contenido
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link rel="stylesheet" href="~/Content/Site.css" type="text/css" />
+</head>
+<body>
+    <div> 
+        <div>
+            <h1>@Model.Nombre</h1>
+            <p>@Model.Descripcion</p>
+        </div>
+        <div>
+            <div class="carac row">
+                <h6 class="col-xs-4">Materia: <b>@Model.IdMateria</b></h6>
+                <h6 class="col-xs-4">Tipo : <b>@Model.IdTipodeCont</b></h6>
+                <h6 class="col-xs-4">Nivel educativo: <b>@Model.IdNivelEdu</b></h6>
+            </div>
+            <div class="row">
+                <h6 class="col-xs-4">Profesor: <b>@Model.Profesor</b></h6>
+                <h6 class="col-xs-4">Escuelas: <b>@Model.IdEscuelas</b></h6>
+            </div>
+        </div>
+        <div>
+            <iframe src=@ViewBag.URL width="600" height="780" style="border: none;"></iframe>
+        </div>
+    </div>
+</body>
+</html>

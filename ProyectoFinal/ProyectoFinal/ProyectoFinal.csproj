@@ -199,14 +199,12 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
-    <Compile Include="Controllers\BuscadorController.cs" />
     <Compile Include="Controllers\ContenidoController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
-    <Compile Include="Models\Buscador.cs" />
     <Compile Include="Models\Contenido.cs" />
     <Compile Include="Models\DataBaseAccess.cs" />
     <Compile Include="Models\Escuelas.cs" />
@@ -235,7 +233,7 @@
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Contenido\SubirContenido.cshtml" />
     <Content Include="Views\Usuario\Subidas.cshtml" />
-    <Content Include="Views\Buscador\Resultados.cshtml" />
+    <Content Include="Views\Contenido\Resultados.cshtml" />
     <Content Include="Views\Shared\_ContentView.cshtml" />
     <Content Include="UI-Flat\css\flat-ui.css.map" />
     <Content Include="UI-Flat\css\vendor\bootstrap\fonts\glyphicons-halflings-regular.eot" />
@@ -265,6 +263,7 @@
     <Content Include="UI-Flat\fonts\lato\lato-regular.ttf" />
     <Content Include="UI-Flat\fonts\lato\lato-regular.woff" />
     <Content Include="UI-Flat\js\vendor\jquery.min.map" />
+    <Content Include="Views\Contenido\VerMas.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

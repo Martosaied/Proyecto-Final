@@ -1,5 +1,5 @@
 ﻿@using ProyectoFinal.Models
-@model Buscador
+@model Contenido
 <!DOCTYPE html>
 <html>
 <head>
@@ -18,13 +18,13 @@
             <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#navbar-collapse-01">
                 <span class="sr-only">Toggle navigation</span>
             </button>
-            <a class="navbar-brand" href="#">Teko</a>
+            <a class="navbar-brand" onclick="location.href='@Url.Action("Index", "Home")'">Teko</a>
         </div>
         <div class="collapse navbar-collapse" id="navbar-collapse-01">
             <ul class="nav navbar-nav navbar-right">
                 @Html.Partial("_LoginPartial")
             </ul>
-        @using (Html.BeginForm("Buscar", "Buscador", FormMethod.Get, new { @class = "navbar-form navbar-left", role = "search" }))
+        @using (Html.BeginForm("Buscar", "Contenido", FormMethod.Get, new { @class = "navbar-form navbar-left", role = "search" }))
         {
             @Html.TextBoxFor(x => x.KeyWords, new { type = "text", @class = "form-control", @placeholder = "Buscar" })
             <button class="btn" type="submit">Search</button>

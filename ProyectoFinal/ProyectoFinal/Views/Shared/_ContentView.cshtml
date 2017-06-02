@@ -19,7 +19,8 @@
                 <span class="tag label label-info">@item.IdNivelEdu</span>,
                 <span class="tag label label-info">@item.Profesor</span>,
                 <span class="tag label label-info">@item.IdEscuelas</span>
-                <p><a href="#" class="btn btn-block btn-lg btn-primary" role="button">Ver mas</a></p>
+                <a href="@Url.Action("VerMas", "Contenido",new { cont=item.ID }) " class = "btn btn-block btn-lg btn-primary">Ver mas</a>
+                
             </div>
         </div>
 

@@ -12,7 +12,7 @@ namespace ProyectoFinal.Controllers
         public ActionResult Index()
         {
             List<Contenido> ListaTodo = new List<Contenido>();
-            Buscador DA = new Buscador();
+            Contenido DA = new Contenido();
             ListaTodo = DA.GetAll();
             ViewBag.ListaArticulos = ListaTodo;
             return View("Index");
@@ -22,7 +22,7 @@ namespace ProyectoFinal.Controllers
         {
             Usuario.usuarioConectado = null;
             List<Contenido> ListaTodo = new List<Contenido>();
-            Buscador DA = new Buscador();
+            Contenido DA = new Contenido();
             ListaTodo = DA.GetAll();
             ViewBag.ListaArticulos = ListaTodo;
             return View("~/Views/Home/Index.cshtml");
