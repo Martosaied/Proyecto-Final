@@ -19,13 +19,15 @@ namespace ProyectoFinal.Models
         public string Nombre { get; set; }
         public string Ruta { get; set; }
         public string Descripcion { get; set; }
-        public int IdUsuario { get; set; }
+        public string Usuario { get; set; }
         public string IdEscuelas { get; set; }
         public string IdMateria { get; set; }
         public string IdTipodeCont { get; set; }
         public string IdNivelEdu { get; set; }
 
         public string Profesor { get; set; }
+
+        public DateTime FechadeSubida { get; set; }
 
         public static MySqlConnection ObtenerConexion()
         {
@@ -37,8 +39,8 @@ namespace ProyectoFinal.Models
         public static int Subir(Contenido Contenido,Usuario User)
         {
             int retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor, NivelEdu,TipoCont) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}', '{7}', '{8}')",
-            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor, Contenido.IdNivelEdu, Contenido.IdTipodeCont), Contenido.ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor, NivelEdu,TipoCont,Fechadesubida) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}', '{7}', '{8}','{9}')",
+            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor, Contenido.IdNivelEdu, Contenido.IdTipodeCont, Contenido.FechadeSubida), Contenido.ObtenerConexion());
             retorno = comando.ExecuteNonQuery();
             return retorno;
         }
@@ -47,10 +49,11 @@ namespace ProyectoFinal.Models
 
         public List<Contenido> GetArticleUser(int id)
         {
-            List<Contenido> articles = CrearLista("select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, " 
+            List<Contenido> articles = CrearLista("select contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, " 
                 + "contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, "
                 + "contenido.Profesor, niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo "
                 + "from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas "
+                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
                 + "INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON "
                 + "contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON contenido.TipoCont = "
                 + "tipodecontenido.IdTipodeCont where contenido.IdUsuario = " + id);
@@ -65,10 +68,11 @@ namespace ProyectoFinal.Models
         public Contenido GetOneArticle(int id)
         {
             Contenido article = new Contenido();
-            string comando = "select contenido.IdUsuario, contenido.IdContenido, contenido.Ruta,"
+            string comando = "select contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta,"
                 + "contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, "
                 + "contenido.Profesor, niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo "
                 + "from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas "
+                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
                 + "INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON "
                 + "contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON contenido.TipoCont = "
                 + "tipodecontenido.IdTipodeCont where contenido.IdContenido = " + id;
@@ -92,10 +96,11 @@ namespace ProyectoFinal.Models
 
         public List<Contenido> GetAll()
         {
-            return CrearLista("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
+            return CrearLista("SELECT contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
                 + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor," +
-                "niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo  from contenido " +
-                " INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON "
+                "niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo  from contenido " 
+                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
+                + " INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON "
                 + " contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON " +
                 " contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON " +
                 "contenido.TipoCont = tipodecontenido.IdTipodecont ");
@@ -106,9 +111,10 @@ namespace ProyectoFinal.Models
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
+            sqlBuilder.Append("SELECT contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
                 + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor,"
                 + " niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo from contenido "
+                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
                 + "INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria "
                 + "= materias.IdMaterias INNER JOIN niveleducativo ON contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN "
                 + "tipodecontenido ON contenido.TipoCont = tipodecontenido.IdTipodeCont  where ");
@@ -136,9 +142,10 @@ namespace ProyectoFinal.Models
             article.IdMateria = (string)reader["NombreMat"];
             article.IdEscuelas = (string)reader["NombreEsc"];
             article.Profesor = (string)reader["Profesor"];
-            article.IdUsuario = (int)reader["IdUsuario"];
+            article.Usuario = (string)reader["Usuario"];
             article.IdNivelEdu = (string)reader["NombreNivel"];
             article.IdTipodeCont = (string)reader["NombreTipo"];
+            article.FechadeSubida = (DateTime)reader["Fechadesubida"];
 
             return article;
         }

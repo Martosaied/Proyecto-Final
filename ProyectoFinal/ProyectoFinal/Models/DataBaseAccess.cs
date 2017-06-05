@@ -11,7 +11,7 @@ namespace ProyectoFinal.Models
         public static MySqlCommand GenerateSqlCommand(string cmdText)
         {
             // Read Connection String from web.config file.
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=; Convert Zero Datetime=True;Allow Zero Datetime=True;");
             MySqlCommand cmd = new MySqlCommand(cmdText, conectar);
             cmd.Connection.Open();
             return cmd;

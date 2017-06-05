@@ -8,3 +8,16 @@
 .carac{
     font-size: 12px !important;
 }
+.card1 {
+    background-color: #1ABC9C !important;
+    height: 60px;
+    width: 100%;
+    text-align: center;
+}
+.card2 {
+    background-color: #16A085 !important;
+    height: 200px;
+    width: 100%;
+    color: #34495E !important;
+    word-wrap: break-word;
+}
