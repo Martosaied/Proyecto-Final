@@ -12,7 +12,7 @@ namespace ProyectoFinal.Controllers
         public ActionResult AbrirSubidas()
         {
             Contenido Buscado = new Contenido();
-            ViewBag.ListaArticulos = Buscado.GetArticleUser(Usuario.usuarioConectado.ID);
+            ViewBag.ListaArticulos = Buscado.GetArticleUser(Usuario.UsuarioConectado.ID);
             if (ViewBag.ListaArticulos == null)
             {
                 List<Contenido> ListVacia = new List<Contenido>();
@@ -50,7 +50,7 @@ namespace ProyectoFinal.Controllers
                 {
                     Usuario.Logueado = true;
                     ViewBag.Usuario = User;
-                    Usuario.usuarioConectado = User;
+                    Usuario.UsuarioConectado = User;
 
                     return View("HomeUsuario");
                 }

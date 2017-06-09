@@ -3,7 +3,7 @@
 -- http://www.phpmyadmin.net
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 26-05-2017 a las 17:23:14
+-- Tiempo de generación: 05-06-2017 a las 17:29:34
 -- Versión del servidor: 5.7.9
 -- Versión de PHP: 5.6.16
 
@@ -38,6 +38,7 @@ CREATE TABLE IF NOT EXISTS `contenido` (
   `Profesor` text,
   `NivelEdu` text NOT NULL,
   `TipoCont` text NOT NULL,
+  `Fechadesubida` datetime NOT NULL,
   PRIMARY KEY (`idContenido`),
   KEY `IdUsuario_idx` (`IdUsuario`),
   KEY `IdEscuela_idx` (`IdEscuela`),
@@ -48,13 +49,13 @@ CREATE TABLE IF NOT EXISTS `contenido` (
 -- Volcado de datos para la tabla `contenido`
 --
 
-INSERT INTO `contenido` (`idContenido`, `Ruta`, `Nombre`, `IdUsuario`, `Descripcion`, `IdEscuela`, `IdMateria`, `Profesor`, `NivelEdu`, `TipoCont`) VALUES
-(1, 'asd', 'Matematica', 1, 'sadsad as sad sad msa s dsa dsa', 1, 1, 'asd', '1', '1'),
-(2, 'asd', 'Matematica', 1, 'asd', 1, 1, 'asd', '2', '3'),
-(3, '~/Uploads/20170512110640-theodorohertzl.docx', 'asdasd', 8, 'asdasd', 2, 8, 'asdasd', '1', '2'),
-(4, '~/Uploads/20170514193719-aliot.docx', 'Lengua', 8, 'Cosas judias', 2, 8, 'Judith Faerverguer', '1', '1'),
-(5, '~/Uploads/20170514202757-analisis de mercado.docx', 'Resumen SSI', 8, 'Alto resu,en papa', 6, 8, 'gaby', '1', '2'),
-(6, '~/Uploads/20170519083542-theodorohertzl.docx', 'Tarea Hertzl', 8, 'Tarea de judia', 1, 1, 'Judith', '', '');
+INSERT INTO `contenido` (`idContenido`, `Ruta`, `Nombre`, `IdUsuario`, `Descripcion`, `IdEscuela`, `IdMateria`, `Profesor`, `NivelEdu`, `TipoCont`, `Fechadesubida`) VALUES
+(1, 'asd', 'Matematica', 1, 'sadsad as sad sad msa s dsa dsa', 1, 1, 'asd', '1', '1', '0000-00-00 00:00:00'),
+(2, 'asd', 'Matematica', 1, 'asd', 1, 1, 'asd', '2', '3', '0000-00-00 00:00:00'),
+(3, '~/Uploads/20170512110640-theodorohertzl.docx', 'asdasd', 8, 'asdasd', 2, 8, 'asdasd', '1', '2', '0000-00-00 00:00:00'),
+(4, '~/Uploads/20170514193719-aliot.docx', 'Lengua', 8, 'Cosas judias', 2, 8, 'Judith Faerverguer', '1', '1', '0000-00-00 00:00:00'),
+(5, '~/Uploads/20170514202757-analisis de mercado.docx', 'Resumen SSI', 8, 'Alto resu,en papa', 6, 8, 'gaby', '1', '2', '0000-00-00 00:00:00'),
+(6, '~/Uploads/20170519083542-theodorohertzl.docx', 'Tarea Hertzl', 8, 'Tarea de judia', 1, 1, 'Judith', '', '', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 

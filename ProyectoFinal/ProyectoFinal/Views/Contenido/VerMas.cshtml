@@ -14,6 +14,7 @@
         <div>
             <h1>@Model.Nombre</h1>
             <p>@Model.Descripcion</p>
+            <h6><small>subido el @Model.FechadeSubida por @Model.Usuario</small></h6>
         </div>
         <div>
             <div class="carac row">
@@ -28,6 +29,9 @@
         </div>
         <div>
             <iframe src=@ViewBag.URL style="border: none; width:100%; height:780px;"></iframe>
+        </div>
+        <div>
+            @Html.ActionLink("Descargar!", "Descargar", "Contenido", new { Ruta=Model.Ruta },new { @class = "btn btn-embossed btn-primary" });
         </div>
     </div>
 </body>

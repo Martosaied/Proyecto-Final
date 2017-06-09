@@ -12,16 +12,10 @@ namespace ProyectoFinal.Models
         public int ID { get; set; }
         public string Nombre { get; set; }
 
-        public static MySqlConnection ObtenerConexion()
-        {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
-            conectar.Open();
-            return conectar;
-        }
         public static List<Materia> TraerMaterias()
         {
             List<Materia> ListMat = new List<Materia>();
-            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from materias"), ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from materias"), DataBaseAccess.ObtenerConexion());
             comando.ExecuteNonQuery();
             MySqlDataReader reader = comando.ExecuteReader();
             Materia Materia = new Materia();

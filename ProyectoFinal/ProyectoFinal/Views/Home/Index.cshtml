@@ -14,35 +14,15 @@
     <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
 </head>
 <body>
-        
+    <div>
         <div>
             <h2 class="text-center">Subidos recientemente</h2>
-            <div class="btn-group" role="group" aria-label="...">
-                <button type="button" class="btn btn-default" id="tarj">
-                    <span class="glyphicon glyphicon-th-large" aria-hidden="true"></span>
-                </button>
-                <button type="button" class="btn btn-default" id="lista">
-                    <span class="glyphicon glyphicon-th-list" aria-hidden="true"></span>
-                </button>
-            </div>
-
-
-
+            <button type="button" class="btn btn-default center-block" id="tarj">Ver todo</button>
             <div class="row" style="margin:1%;">
-                @Html.Partial("_ContentView")
+                @Html.Partial("_Carrousel")
             </div>
         </div>
-    <script>
-        $(document).ready(function(){
-            $('#tarj').click(function () {
-                $('.objeto').removeClass('col-sm-12 col-md-12');
-                $('.objeto').addClass('col-sm-3 col-md-3');
-            });
-            $('#lista').click(function () {
-                $('.objeto').removeClass('col-sm-3 col-md-3');
-                $('.objeto').addClass('col-sm-12 col-md-12');
-            });
-        }
-    </script>
+    </div>
+
 </body>
 </html>

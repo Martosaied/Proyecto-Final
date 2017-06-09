@@ -18,8 +18,9 @@ namespace ProyectoFinal.Controllers
                 if (file != null)
                 {
                     string archivo = (DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + file.FileName).ToLower();
-                    Cont.Ruta = "~/Uploads/" + archivo;
-                    int Correcto = Contenido.Subir(Cont, Usuario.usuarioConectado);
+                    Cont.Ruta = archivo;
+                    Cont.FechadeSubida = DateTime.Now.ToString();
+                    int Correcto = Contenido.Subir(Cont, Usuario.UsuarioConectado);
                     file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
                     Contenido Buscado = new Contenido();
                     ViewBag.ListaArticulos = Buscado.GetAll();
@@ -33,6 +34,18 @@ namespace ProyectoFinal.Controllers
             }
         }
 
+        public FileResult Descargar(string Ruta)
+        {
+            return File("~/Uploads/" + Ruta, System.Net.Mime.MediaTypeNames.Application.Octet);
+        }
+
+        /*public FileResult Descargar(string Ruta)
+        {
+
+            byte[] fileBytes = System.IO.File.ReadAllBytes(@Ruta);
+            string fileName = "myfile.ext";
+            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
+        }*/
         public ActionResult VerMas(int cont)
         {
             Contenido selected = new Contenido();

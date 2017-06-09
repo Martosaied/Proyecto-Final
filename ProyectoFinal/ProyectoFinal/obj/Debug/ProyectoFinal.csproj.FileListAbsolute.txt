@@ -811,7 +811,6 @@ G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\Microsoft.AI
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\Microsoft.ApplicationInsights.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\Microsoft.CodeDom.Providers.DotNetCompilerPlatform.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\Microsoft.Web.Infrastructure.dll
-G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\MySql.Data.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\System.Web.Helpers.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\System.Web.Mvc.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\System.Web.Razor.dll
@@ -833,3 +832,4 @@ G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\System.Web.M
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\obj\Debug\ProyectoFinal.csprojResolveAssemblyReference.cache
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\obj\Debug\ProyectoFinal.dll
 G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\obj\Debug\ProyectoFinal.pdb
+G:\ORT\ProyectoFinal\Proyecto-Final\ProyectoFinal\ProyectoFinal\bin\MySql.Data.dll

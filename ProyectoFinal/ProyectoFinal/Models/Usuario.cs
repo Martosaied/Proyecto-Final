@@ -12,7 +12,7 @@ namespace ProyectoFinal.Models
     {
         public int ID { get; set; }
 
-        public string foto { get; set; }
+        public string Foto { get; set; }
 
         [Required(ErrorMessage = "Campo obligatorio")]
         public string Nombre { get; set; }
@@ -31,9 +31,9 @@ namespace ProyectoFinal.Models
 
         [Required(ErrorMessage = "Campo obligatorio")]
         [Compare("Contraseña", ErrorMessage = "Las contraseñas no coinciden ")]
-        public string confirmarContraseña { get; set; }
+        public string ConfirmarContraseña { get; set; }
 
-        public static Usuario usuarioConectado { get; set;} 
+        public static Usuario UsuarioConectado { get; set;} 
         public static bool Logueado { get; set; }
      
 
@@ -51,22 +51,15 @@ namespace ProyectoFinal.Models
         }
 
         
-
-        public static MySqlConnection ObtenerConexion()
-        {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
-            conectar.Open();
-            return conectar;
-        }
-
+  
        
 
         public static int Registrar(Usuario Usuario)
         {
             int retorno = 0;
-            Usuario.foto = "~/ Content / Documentos / defecto.png";
+            Usuario.Foto = "~/ Content / Documentos / defecto.png";
     MySqlCommand comando = new MySqlCommand(string.Format("Insert into usuarios (Nombre, Apellido, Email, Contraseña) values ('{0}','{1}','{2}', '{3}')",
-                    Usuario.Nombre, Usuario.Apellido, Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
+                    Usuario.Nombre, Usuario.Apellido, Usuario.Email, Usuario.Contraseña), DataBaseAccess.ObtenerConexion());
                     retorno = comando.ExecuteNonQuery();
                     return retorno;
         }
@@ -75,7 +68,7 @@ namespace ProyectoFinal.Models
         {
             int retorno;
             retorno = 0;
-            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from usuarios WHERE Email='{0}' and Contraseña='{1}'", Usuario.Email, Usuario.Contraseña), Usuario.ObtenerConexion());
+            MySqlCommand comando = new MySqlCommand(string.Format("SELECT * from usuarios WHERE Email='{0}' and Contraseña='{1}'", Usuario.Email, Usuario.Contraseña), DataBaseAccess.ObtenerConexion());
             retorno = comando.ExecuteNonQuery();
             MySqlDataReader reader = comando.ExecuteReader();
             Usuario MiUsuario = new Usuario();

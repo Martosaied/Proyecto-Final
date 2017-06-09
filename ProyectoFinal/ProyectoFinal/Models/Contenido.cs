@@ -27,11 +27,11 @@ namespace ProyectoFinal.Models
 
         public string Profesor { get; set; }
 
-        public DateTime FechadeSubida { get; set; }
+        public string FechadeSubida { get; set; }
 
         public static MySqlConnection ObtenerConexion()
         {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=;");
+            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=root;");
             conectar.Open();
             return conectar;
         }
@@ -145,7 +145,7 @@ namespace ProyectoFinal.Models
             article.Usuario = (string)reader["Usuario"];
             article.IdNivelEdu = (string)reader["NombreNivel"];
             article.IdTipodeCont = (string)reader["NombreTipo"];
-            article.FechadeSubida = (DateTime)reader["Fechadesubida"];
+            article.FechadeSubida = reader["Fechadesubida"].ToString();
 
             return article;
         }
