@@ -24,39 +24,43 @@ namespace ProyectoFinal.Models
         public string IdMateria { get; set; }
         public string IdTipodeCont { get; set; }
         public string IdNivelEdu { get; set; }
-
         public string Profesor { get; set; }
-
         public string FechadeSubida { get; set; }
-
-        public static MySqlConnection ObtenerConexion()
-        {
-            MySqlConnection conectar = new MySqlConnection("server=127.0.0.1; database=db; Uid=root; pwd=root;");
-            conectar.Open();
-            return conectar;
-        }
-
+        public int Pop { get; set; }
+        public int Des { get; set; }
+        public string KeyWords { get; set; }
         public static int Subir(Contenido Contenido,Usuario User)
         {
             int retorno = 0;
             MySqlCommand comando = new MySqlCommand(string.Format("Insert into contenido (Nombre, ruta, IdUsuario, Descripcion,IdEscuela,IdMateria,Profesor, NivelEdu,TipoCont,Fechadesubida) values ('{0}','{1}','{2}','{3}','{4}','{5}','{6}', '{7}', '{8}','{9}')",
-            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor, Contenido.IdNivelEdu, Contenido.IdTipodeCont, Contenido.FechadeSubida), Contenido.ObtenerConexion());
+            Contenido.Nombre, Contenido.Ruta, User.ID, Contenido.Descripcion,Contenido.IdEscuelas,Contenido.IdMateria,Contenido.Profesor, Contenido.IdNivelEdu, Contenido.IdTipodeCont, Contenido.FechadeSubida), DataBaseAccess.ObtenerConexion());
             retorno = comando.ExecuteNonQuery();
             return retorno;
         }
-
-        public string KeyWords { get; set; }
+        public void UpdatePopularidad(int id, int pop)
+        {
+            pop++;
+            MySqlCommand cmd = new MySqlCommand(string.Format("UPDATE contenido SET IPopularidad = '{0}' WHERE idContenido = '{1}'",pop, id), DataBaseAccess.ObtenerConexion());
+            cmd.ExecuteNonQuery();
+        }
+        public void UpdateDescargas(int id, int des)
+        {
+            des++;
+            MySqlCommand cmd = new MySqlCommand(string.Format("UPDATE contenido SET IDescargas = '{0}' WHERE idContenido = '{1}'", des, id), DataBaseAccess.ObtenerConexion());
+            cmd.ExecuteNonQuery();
+        }
+        string GetGeneric = "SELECT contenido.IDescargas, contenido.IPopularidad, contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
+                + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor," +
+                "niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo FROM contenido "
+                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
+                + " INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON "
+                + " contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON " +
+                " contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON " +
+                "contenido.TipoCont = tipodecontenido.IdTipodecont ";
 
         public List<Contenido> GetArticleUser(int id)
         {
-            List<Contenido> articles = CrearLista("select contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdUsuario, contenido.IdContenido, contenido.Ruta, " 
-                + "contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, "
-                + "contenido.Profesor, niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo "
-                + "from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas "
-                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
-                + "INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON "
-                + "contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON contenido.TipoCont = "
-                + "tipodecontenido.IdTipodeCont where contenido.IdUsuario = " + id);
+            List<Contenido> articles = CrearLista(GetGeneric + "where contenido.IdUsuario = " + id);
 
             // Only return the first record.
             if (articles.Count > 0)
@@ -68,14 +72,7 @@ namespace ProyectoFinal.Models
         public Contenido GetOneArticle(int id)
         {
             Contenido article = new Contenido();
-            string comando = "select contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta,"
-                + "contenido.Nombre, contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, "
-                + "contenido.Profesor, niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo "
-                + "from contenido INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas "
-                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
-                + "INNER JOIN Materias ON contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON "
-                + "contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON contenido.TipoCont = "
-                + "tipodecontenido.IdTipodeCont where contenido.IdContenido = " + id;
+            string comando = GetGeneric + "where contenido.IdContenido = " + id;
             MySqlCommand cmd = DataBaseAccess.GenerateSqlCommand(comando);
             // Only return the first record.
             using (cmd.Connection)
@@ -92,32 +89,26 @@ namespace ProyectoFinal.Models
             }
             return null;
         }
-
-
         public List<Contenido> GetAll()
         {
-            return CrearLista("SELECT contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
-                + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor," +
-                "niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo  from contenido " 
-                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
-                + " INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON "
-                + " contenido.IdMateria = materias.IdMaterias INNER JOIN niveleducativo ON " +
-                " contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN tipodecontenido ON " +
-                "contenido.TipoCont = tipodecontenido.IdTipodecont ");
+            string cmd = GetGeneric;
+            return CrearLista(cmd);
         }
-
-
+        public List<Contenido> GetByPop()
+        {
+            string cmd = GetGeneric + "ORDER BY contenido.IPopularidad DESC";
+            return CrearLista(cmd);
+        }
+        public List<Contenido> GetByDes()
+        {
+            string cmd = GetGeneric + "ORDER BY contenido.IDescargas DESC";
+            return CrearLista(cmd);
+        }
         public List<Contenido> Search(List<string> keywords)
         {
             // Generate a complex Sql command.
             StringBuilder sqlBuilder = new StringBuilder();
-            sqlBuilder.Append("SELECT contenido.Fechadesubida, usuarios.Nombre AS Usuario, contenido.IdContenido, contenido.Ruta, contenido.Nombre, "
-                + "contenido.Descripcion, materias.Nombre AS NombreMat, escuelas.Nombre AS NombreEsc, contenido.Profesor,"
-                + " niveleducativo.NombreNivel AS NombreNivel, tipodecontenido.Nombretipo AS NombreTipo from contenido "
-                + "INNER JOIN usuarios ON contenido.IdUsuario = usuarios.idUsuario "
-                + "INNER JOIN escuelas ON contenido.IdEscuela = escuelas.IdEscuelas INNER JOIN Materias ON contenido.IdMateria "
-                + "= materias.IdMaterias INNER JOIN niveleducativo ON contenido.NivelEdu = niveleducativo.IdNivel INNER JOIN "
-                + "tipodecontenido ON contenido.TipoCont = tipodecontenido.IdTipodeCont  where ");
+            sqlBuilder.Append(GetGeneric + " where ");
 
             foreach (string item in keywords)
             {
@@ -130,7 +121,6 @@ namespace ProyectoFinal.Models
 
             return CrearLista(sql);
         }
-
         protected Contenido ReadArticle(MySqlDataReader reader)
         {
             Contenido article = new Contenido();
@@ -146,11 +136,10 @@ namespace ProyectoFinal.Models
             article.IdNivelEdu = (string)reader["NombreNivel"];
             article.IdTipodeCont = (string)reader["NombreTipo"];
             article.FechadeSubida = reader["Fechadesubida"].ToString();
+            article.Pop = (int)reader["IPopularidad"];
 
             return article;
         }
-
-
         protected List<Contenido> CrearLista(string Comando)
         {
             List<Contenido> articles = new List<Contenido>();

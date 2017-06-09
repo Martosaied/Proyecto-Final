@@ -2,32 +2,29 @@
 @{
     foreach (Contenido item in ViewBag.ListaArticulos)
     {
-        string recortado1 = item.Descripcion;
-
-        if (item.Descripcion.Length >= 120)
-        {
-            recortado1 = item.Descripcion.Substring(0, 40) + "...";
-
-        }
-        <div class="col-sm-12 col-md-12 row objeto" style="margin:1%; box-shadow: 1px 1px 5px #888888;">
-            <div>
-                <h3>@item.Nombre</h3>
-                <h6><small>Subido el @item.FechadeSubida por @item.Usuario</small></h6>
-                    <p>@recortado1</p>
+        <div>
+            <span class="col-sm-1 col-md-1"></span>
+            <div class="col-sm-3 col-md-3 row objeto" style="margin-bottom:30px; box-shadow: 1px 1px 5px #888888;">
+                <div>
+                    <h3>@item.Nombre</h3>
+                    <h6><small>Subido el @item.FechadeSubida por @item.Usuario</small></h6>
+                    <p>@item.Descripcion</p>
                     <p>@item.Usuario</p>
-                <p class="divider"></p>
-                <span class="tag label label-info">@item.IdMateria</span>,
-                <span class="tag label label-info">@item.IdTipodeCont</span>,
-                <span class="tag label label-info">@item.IdNivelEdu</span>,
-                <span class="tag label label-info">@item.Profesor</span>,
-                <span class="tag label label-info">@item.IdEscuelas</span>
-                <a href="@Url.Action("VerMas", "Contenido",new { cont=item.ID }) " class = "btn btn-block btn-lg btn-primary">Ver mas</a>
-                
+                    <p class="divider"></p>
+                    <span class="tag label label-info">@item.IdMateria</span>,
+                    <span class="tag label label-info">@item.IdTipodeCont</span>,
+                    <span class="tag label label-info">@item.IdNivelEdu</span>,
+                    <span class="tag label label-info">@item.Profesor</span>,
+                    <span class="tag label label-info">@item.IdEscuelas</span>
+                    <a href="@Url.Action("VerMas", "Contenido",new { cont=item.ID }) " class="btn btn-block btn-lg btn-primary" style="margin-bottom:10px;">Ver mas</a>
+
+                </div>
             </div>
         </div>
 
     }
 }
+
 
 
 

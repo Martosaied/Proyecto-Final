@@ -31,7 +31,7 @@
             <iframe src=@ViewBag.URL style="border: none; width:100%; height:780px;"></iframe>
         </div>
         <div>
-            @Html.ActionLink("Descargar!", "Descargar", "Contenido", new { Ruta=Model.Ruta },new { @class = "btn btn-embossed btn-primary" });
+            @Html.ActionLink("Descargar!", "Descargar", "Contenido", new { ID = Model.ID },new { @class = "btn btn-embossed btn-primary" })
         </div>
     </div>
 </body>

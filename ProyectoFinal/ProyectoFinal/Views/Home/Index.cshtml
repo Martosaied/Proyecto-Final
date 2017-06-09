@@ -17,7 +17,34 @@
     <div>
         <div>
             <h2 class="text-center">Subidos recientemente</h2>
-            <button type="button" class="btn btn-default center-block" id="tarj">Ver todo</button>
+            <a href="@Url.Action("VerTodo", "Contenido",new { Title="Mas recientes"})" type="button" class="btn btn-default center-block" id="tarj">Ver todo</a>
+            @{
+                ViewBag.Controles = "MasRec";
+            }
+            <div class="row" style="margin:1%;">
+                @Html.Partial("_Carrousel")
+            </div>
+        </div>
+        <hr style="color: #0056b2; margin-top:20px; margin-bottom:20px;" />
+        <div>
+            <h2 class="text-center">Mas populares</h2>
+            <a href="@Url.Action("VerTodo", "Contenido",new { Title="Mas populares"})" type="button" class="btn btn-default center-block" id="tarj">Ver todo</a>
+            @{
+                ViewBag.ListaArticulos = ViewBag.ListaArticulosPop;
+                ViewBag.Controles = "MasPop";
+            }
+            <div class="row" style="margin:1%;">
+                @Html.Partial("_Carrousel")
+            </div>
+        </div>
+        <hr style="color: #0056b2; margin-top:20px; margin-bottom:20px;" />
+        <div>
+            <h2 class="text-center">Mas descargados</h2>
+            <a href="@Url.Action("VerTodo", "Contenido",new { Title="Mas descargados"})" type="button" class="btn btn-default center-block" id="tarj">Ver todo</a>
+            @{
+                ViewBag.ListaArticulos = ViewBag.ListaArticulosDes;
+                ViewBag.Controles = "MasDes";
+            }
             <div class="row" style="margin:1%;">
                 @Html.Partial("_Carrousel")
             </div>

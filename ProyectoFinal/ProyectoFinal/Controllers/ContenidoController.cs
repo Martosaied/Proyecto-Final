@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Models;
+using System.IO;
 
 namespace ProyectoFinal.Controllers
 {
@@ -34,27 +35,52 @@ namespace ProyectoFinal.Controllers
             }
         }
 
-        public FileResult Descargar(string Ruta)
+        public ActionResult Descargar(int ID)
         {
-            return File("~/Uploads/" + Ruta, System.Net.Mime.MediaTypeNames.Application.Octet);
+            Contenido selected = new Contenido();
+            selected = selected.GetOneArticle(ID);
+            selected.UpdateDescargas(selected.ID, selected.Des);
+            string contentType = System.Net.Mime.MediaTypeNames.Application.Pdf;
+            return new FilePathResult("~/Uploads/" + selected.Ruta, contentType)
+            {
+                FileDownloadName = selected.Ruta,
+            };
         }
 
-        /*public FileResult Descargar(string Ruta)
-        {
-
-            byte[] fileBytes = System.IO.File.ReadAllBytes(@Ruta);
-            string fileName = "myfile.ext";
-            return File(fileBytes, System.Net.Mime.MediaTypeNames.Application.Octet, fileName);
-        }*/
         public ActionResult VerMas(int cont)
         {
             Contenido selected = new Contenido();
             selected = selected.GetOneArticle(cont);
             ViewBag.URL = "http://docs.google.com/viewer?url=" + selected.Ruta + "&embedded=true";
             ViewBag.Title = selected.Nombre;
+            selected.UpdatePopularidad(selected.ID, selected.Pop);
             return View("~/Views/Contenido/VerMas.cshtml", selected);//porfavor
         }
+        public ActionResult VerTodo(string Title)
+        {
+            List<Contenido> Lista = new List<Contenido>();
+            Contenido DA = new Contenido();
+            switch (Title)
+            {
+                case "Mas recientes":
+                    Lista = DA.GetAll();
+                    ViewBag.ListaArticulos = Lista;
+                    ViewBag.Title = Title;
+                    break;
+                case "Mas populares":
+                    Lista = DA.GetByPop();
+                    ViewBag.ListaArticulos = Lista;
+                    ViewBag.Title = Title;
+                    break;
+                case "Mas descargados":
+                    Lista = DA.GetByDes();
+                    ViewBag.ListaArticulos = Lista;
+                    ViewBag.Title = Title;
+                    break;
+            }
+            return View("Resultados");
 
+        }
         public ActionResult AbrirSubir()
         {
 
@@ -98,6 +124,7 @@ namespace ProyectoFinal.Controllers
                 ViewBag.ListaArticulos = list;
 
             }
+            ViewBag.Title = "Resultados";
             return View("Resultados");
         }
 

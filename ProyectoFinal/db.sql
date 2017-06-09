@@ -1,11 +1,11 @@
 -- phpMyAdmin SQL Dump
--- version 4.5.2
--- http://www.phpmyadmin.net
+-- version 4.6.4
+-- https://www.phpmyadmin.net/
 --
 -- Servidor: 127.0.0.1
--- Tiempo de generación: 05-06-2017 a las 17:29:34
--- Versión del servidor: 5.7.9
--- Versión de PHP: 5.6.16
+-- Tiempo de generación: 09-06-2017 a las 01:54:59
+-- Versión del servidor: 5.7.14
+-- Versión de PHP: 5.6.25
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -20,15 +20,24 @@ SET time_zone = "+00:00";
 -- Base de datos: `db`
 --
 
+DELIMITER $$
+--
+-- Procedimientos
+--
+CREATE DEFINER=`root`@`localhost` PROCEDURE `login` (IN `email` TEXT, IN `contraseña` TEXT)  BEGIN
+  SELECT * from usuarios WHERE Email=@Email and Contraseña=@Contraseña;
+END$$
+
+DELIMITER ;
+
 -- --------------------------------------------------------
 
 --
 -- Estructura de tabla para la tabla `contenido`
 --
 
-DROP TABLE IF EXISTS `contenido`;
-CREATE TABLE IF NOT EXISTS `contenido` (
-  `idContenido` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `contenido` (
+  `idContenido` int(11) NOT NULL,
   `Ruta` text NOT NULL,
   `Nombre` text NOT NULL,
   `IdUsuario` int(11) NOT NULL,
@@ -38,12 +47,8 @@ CREATE TABLE IF NOT EXISTS `contenido` (
   `Profesor` text,
   `NivelEdu` text NOT NULL,
   `TipoCont` text NOT NULL,
-  `Fechadesubida` datetime NOT NULL,
-  PRIMARY KEY (`idContenido`),
-  KEY `IdUsuario_idx` (`IdUsuario`),
-  KEY `IdEscuela_idx` (`IdEscuela`),
-  KEY `IdMateria_idx` (`IdMateria`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+  `Fechadesubida` tinytext NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `contenido`
@@ -55,7 +60,11 @@ INSERT INTO `contenido` (`idContenido`, `Ruta`, `Nombre`, `IdUsuario`, `Descripc
 (3, '~/Uploads/20170512110640-theodorohertzl.docx', 'asdasd', 8, 'asdasd', 2, 8, 'asdasd', '1', '2', '0000-00-00 00:00:00'),
 (4, '~/Uploads/20170514193719-aliot.docx', 'Lengua', 8, 'Cosas judias', 2, 8, 'Judith Faerverguer', '1', '1', '0000-00-00 00:00:00'),
 (5, '~/Uploads/20170514202757-analisis de mercado.docx', 'Resumen SSI', 8, 'Alto resu,en papa', 6, 8, 'gaby', '1', '2', '0000-00-00 00:00:00'),
-(6, '~/Uploads/20170519083542-theodorohertzl.docx', 'Tarea Hertzl', 8, 'Tarea de judia', 1, 1, 'Judith', '', '', '0000-00-00 00:00:00');
+(13, 'asd', 'Matematica', 1, 'sadsad as sad sad msa s dsa dsa', 1, 1, 'asd', '1', '1', '0000-00-00 00:00:00'),
+(14, 'asd', 'Matematica', 1, 'asd', 1, 1, 'asd', '2', '3', '0000-00-00 00:00:00'),
+(15, '~/Uploads/20170512110640-theodorohertzl.docx', 'asdasd', 8, 'asdasd', 2, 8, 'asdasd', '1', '2', '0000-00-00 00:00:00'),
+(16, '~/Uploads/20170514193719-aliot.docx', 'Lengua', 8, 'Cosas judias', 2, 8, 'Judith Faerverguer', '1', '1', '0000-00-00 00:00:00'),
+(17, '~/Uploads/20170514202757-analisis de mercado.docx', 'Resumen SSI', 8, 'Alto resu,en papa', 6, 8, 'gaby', '1', '2', '0000-00-00 00:00:00');
 
 -- --------------------------------------------------------
 
@@ -63,12 +72,10 @@ INSERT INTO `contenido` (`idContenido`, `Ruta`, `Nombre`, `IdUsuario`, `Descripc
 -- Estructura de tabla para la tabla `escuelas`
 --
 
-DROP TABLE IF EXISTS `escuelas`;
-CREATE TABLE IF NOT EXISTS `escuelas` (
-  `idEscuelas` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`idEscuelas`)
-) ENGINE=InnoDB AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE TABLE `escuelas` (
+  `idEscuelas` int(11) NOT NULL,
+  `Nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `escuelas`
@@ -88,12 +95,10 @@ INSERT INTO `escuelas` (`idEscuelas`, `Nombre`) VALUES
 -- Estructura de tabla para la tabla `materias`
 --
 
-DROP TABLE IF EXISTS `materias`;
-CREATE TABLE IF NOT EXISTS `materias` (
-  `idmaterias` int(11) NOT NULL AUTO_INCREMENT,
-  `Nombre` varchar(45) NOT NULL,
-  PRIMARY KEY (`idmaterias`)
-) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=latin1;
+CREATE TABLE `materias` (
+  `idmaterias` int(11) NOT NULL,
+  `Nombre` varchar(45) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `materias`
@@ -115,12 +120,10 @@ INSERT INTO `materias` (`idmaterias`, `Nombre`) VALUES
 -- Estructura de tabla para la tabla `niveleducativo`
 --
 
-DROP TABLE IF EXISTS `niveleducativo`;
-CREATE TABLE IF NOT EXISTS `niveleducativo` (
-  `IdNivel` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreNivel` text NOT NULL,
-  PRIMARY KEY (`IdNivel`)
-) ENGINE=MyISAM AUTO_INCREMENT=5 DEFAULT CHARSET=latin1;
+CREATE TABLE `niveleducativo` (
+  `IdNivel` int(11) NOT NULL,
+  `NombreNivel` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `niveleducativo`
@@ -137,12 +140,10 @@ INSERT INTO `niveleducativo` (`IdNivel`, `NombreNivel`) VALUES
 -- Estructura de tabla para la tabla `tipodecontenido`
 --
 
-DROP TABLE IF EXISTS `tipodecontenido`;
-CREATE TABLE IF NOT EXISTS `tipodecontenido` (
-  `IdTipodecont` int(11) NOT NULL AUTO_INCREMENT,
-  `NombreTipo` text NOT NULL,
-  PRIMARY KEY (`IdTipodecont`)
-) ENGINE=MyISAM AUTO_INCREMENT=7 DEFAULT CHARSET=latin1;
+CREATE TABLE `tipodecontenido` (
+  `IdTipodecont` int(11) NOT NULL,
+  `NombreTipo` text NOT NULL
+) ENGINE=MyISAM DEFAULT CHARSET=latin1;
 
 --
 -- Volcado de datos para la tabla `tipodecontenido`
@@ -162,15 +163,13 @@ INSERT INTO `tipodecontenido` (`IdTipodecont`, `NombreTipo`) VALUES
 -- Estructura de tabla para la tabla `usuarios`
 --
 
-DROP TABLE IF EXISTS `usuarios`;
-CREATE TABLE IF NOT EXISTS `usuarios` (
-  `idUsuario` int(11) NOT NULL AUTO_INCREMENT,
+CREATE TABLE `usuarios` (
+  `idUsuario` int(11) NOT NULL,
   `Nombre` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `Apellido` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
   `Email` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
-  `Contraseña` varchar(45) COLLATE latin1_spanish_ci NOT NULL,
-  PRIMARY KEY (`idUsuario`)
-) ENGINE=InnoDB AUTO_INCREMENT=11 DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
+  `Contraseña` varchar(45) COLLATE latin1_spanish_ci NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=latin1 COLLATE=latin1_spanish_ci;
 
 --
 -- Volcado de datos para la tabla `usuarios`
@@ -187,6 +186,83 @@ INSERT INTO `usuarios` (`idUsuario`, `Nombre`, `Apellido`, `Email`, `Contraseña
 (9, 'yo', 'ewrwer', 'adkmn@asdm.cop', 'asdasdasd1'),
 (10, 'asdasd', 'adsasd', 'asdasd@aoisd.asd', 'Martinasd1');
 
+--
+-- Índices para tablas volcadas
+--
+
+--
+-- Indices de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  ADD PRIMARY KEY (`idContenido`),
+  ADD KEY `IdUsuario_idx` (`IdUsuario`),
+  ADD KEY `IdEscuela_idx` (`IdEscuela`),
+  ADD KEY `IdMateria_idx` (`IdMateria`);
+
+--
+-- Indices de la tabla `escuelas`
+--
+ALTER TABLE `escuelas`
+  ADD PRIMARY KEY (`idEscuelas`);
+
+--
+-- Indices de la tabla `materias`
+--
+ALTER TABLE `materias`
+  ADD PRIMARY KEY (`idmaterias`);
+
+--
+-- Indices de la tabla `niveleducativo`
+--
+ALTER TABLE `niveleducativo`
+  ADD PRIMARY KEY (`IdNivel`);
+
+--
+-- Indices de la tabla `tipodecontenido`
+--
+ALTER TABLE `tipodecontenido`
+  ADD PRIMARY KEY (`IdTipodecont`);
+
+--
+-- Indices de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  ADD PRIMARY KEY (`idUsuario`);
+
+--
+-- AUTO_INCREMENT de las tablas volcadas
+--
+
+--
+-- AUTO_INCREMENT de la tabla `contenido`
+--
+ALTER TABLE `contenido`
+  MODIFY `idContenido` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=18;
+--
+-- AUTO_INCREMENT de la tabla `escuelas`
+--
+ALTER TABLE `escuelas`
+  MODIFY `idEscuelas` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `materias`
+--
+ALTER TABLE `materias`
+  MODIFY `idmaterias` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=9;
+--
+-- AUTO_INCREMENT de la tabla `niveleducativo`
+--
+ALTER TABLE `niveleducativo`
+  MODIFY `IdNivel` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=5;
+--
+-- AUTO_INCREMENT de la tabla `tipodecontenido`
+--
+ALTER TABLE `tipodecontenido`
+  MODIFY `IdTipodecont` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+--
+-- AUTO_INCREMENT de la tabla `usuarios`
+--
+ALTER TABLE `usuarios`
+  MODIFY `idUsuario` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=11;
 --
 -- Restricciones para tablas volcadas
 --
