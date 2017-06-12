@@ -25,16 +25,57 @@ namespace ProyectoFinal.Controllers
                     file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
                     Contenido Buscado = new Contenido();
                     ViewBag.ListaArticulos = Buscado.GetAll();
-                    return View("~/Views/Home/Index.cshtml");
+                    return RedirectToAction("Index", "Home");
                 }
-                return View("~/Views/Contenido/SubirContenido.cshtml");
+                return View("~/Views/Contenido/SubirE3.cshtml");
             }
             else
             {
-                return View("~/Views/Contenido/SubirContenido.cshtml");
+                return View("~/Views/Contenido/SubirE3.cshtml");
             }
         }
 
+        public ActionResult SubirE1(Contenido Cont)
+        {
+            if (ModelState.IsValid)
+            {
+                Cont.FechadeSubida = DateTime.Now.ToString();
+                List<TipoContenido> ListTipodecont = new List<TipoContenido>();
+                ListTipodecont = TipoContenido.TraerTipoContenidos();
+
+                List<NivelEducativo> ListNivelEdu = new List<NivelEducativo>();
+                ListNivelEdu = NivelEducativo.TraerNivelEducativo();
+
+                List<Escuelas> ListEscuela = new List<Escuelas>();
+                ListEscuela = Escuelas.TraerEscuelas();
+
+                List<Materia> ListMateria = new List<Materia>();
+                ListMateria = Materia.TraerMaterias();
+
+                ViewBag.TipodeCont = ListTipodecont;
+                ViewBag.NivelEdu = ListNivelEdu;
+                ViewBag.Escuelas = ListEscuela;
+                ViewBag.Materia = ListMateria;
+                return View("~/Views/Contenido/SubirE2.cshtml", Cont);
+            }
+            else
+            {
+                return View("~/Views/Contenido/SubirE1.cshtml", Cont);
+            }
+
+        }
+
+        public ActionResult SubirE2(Contenido Cont)
+        {
+            if (ModelState.IsValid)
+            {
+                return View("~/Views/Contenido/SubirE3.cshtml", Cont);
+            }
+            else
+            {
+                return View("~/Views/Contenido/SubirE2.cshtml", Cont);
+            }
+        }
         public ActionResult Descargar(int ID)
         {
             Contenido selected = new Contenido();
@@ -83,24 +124,7 @@ namespace ProyectoFinal.Controllers
         }
         public ActionResult AbrirSubir()
         {
-
-            List<TipoContenido> ListTipodecont = new List<TipoContenido>();
-            ListTipodecont = TipoContenido.TraerTipoContenidos();
-
-            List<NivelEducativo> ListNivelEdu = new List<NivelEducativo>();
-            ListNivelEdu = NivelEducativo.TraerNivelEducativo();
-
-            List<Escuelas> ListEscuela = new List<Escuelas>();
-            ListEscuela = Escuelas.TraerEscuelas();
-
-            List<Materia> ListMateria = new List<Materia>();
-            ListMateria = Materia.TraerMaterias();
-
-            ViewBag.TipodeCont = ListTipodecont;
-            ViewBag.NivelEdu = ListNivelEdu;
-            ViewBag.Escuelas = ListEscuela;
-            ViewBag.Materia = ListMateria;
-            return View("SubirContenido");
+            return View("~/Views/Contenido/SubirE1.cshtml");
         }
 
         protected List<string> keywords = new List<string>();

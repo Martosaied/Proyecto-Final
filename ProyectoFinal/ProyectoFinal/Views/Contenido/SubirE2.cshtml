@@ -1,0 +1,74 @@
+﻿@using ProyectoFinal.Models
+@model ProyectoFinal.Models.Contenido
+@{
+    ViewBag.Title = "Subir";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container">
+    @using (Html.BeginForm("SubirE2", "Contenido", FormMethod.Post, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
+    {
+        <h2 class="form-signin-heading">Subir archivo</h2>
+            <div class="progress">
+                <div class="progress-bar" style="width: 33%;"></div>
+            </div>
+
+            <div class="form-group">
+                <div class="row">
+                    <div class="dropdown col-md-4">
+                        @Html.ValidationMessageFor(x => x.IdMateria)<br />
+                        @Html.DropDownListFor(x => x.IdMateria, new SelectList(ViewBag.Materia, "ID", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.ValidationMessageFor(x => x.IdMateria)<br />
+                        @Html.TextBoxFor(x => x.IdMateria, new { @class = "form-control", placeholder = "Otra materia", @required = "required" })
+                    </div>
+                </div>
+
+                <div class="row">
+                    <div class="dropdown col-md-4">
+                        @Html.ValidationMessageFor(x => x.IdEscuelas)<br />
+                        @Html.DropDownListFor(x => x.IdEscuelas, new SelectList(ViewBag.Escuelas, "ID", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+                    </div>
+                    <div class="col-md-4">
+                        @Html.ValidationMessageFor(x => x.IdEscuelas)<br />
+                        @Html.TextBoxFor(x => x.IdEscuelas, new { @class = "form-control", placeholder = "Otra escuela", @required = "required" })
+                    </div>
+                </div>
+
+                <div>
+                    <div class="dropdown">
+                        @Html.ValidationMessageFor(x => x.IdTipodeCont)<br />
+                        @Html.DropDownListFor(x => x.IdTipodeCont, new SelectList(ViewBag.TipodeCont, "ID", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+                    </div>
+                </div>
+
+                <div>
+                    <div class="dropdown">
+                        @Html.ValidationMessageFor(x => x.IdNivelEdu)<br />
+                        @Html.DropDownListFor(x => x.IdNivelEdu, new SelectList(ViewBag.NivelEdu, "ID", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+                    </div>
+                </div>
+
+                @Html.ValidationMessageFor(x => x.Profesor)<br />
+                @Html.TextBoxFor(x => x.Profesor, new { @class = "form-control", placeholder = "Profesor", @required = "required" })
+            </div>
+            @Html.HiddenFor(x => x.Descripcion)
+            @Html.HiddenFor(x => x.Nombre)
+            @Html.HiddenFor(x => x.FechadeSubida)
+            @Html.HiddenFor(x => x.Usuario)
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Subir</button>
+        }
+
+    </div> <!-- /container -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>

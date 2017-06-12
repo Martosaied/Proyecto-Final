@@ -45,10 +45,14 @@ namespace ProyectoFinal.Controllers
         public ActionResult LogOff()
         {
             Usuario.UsuarioConectado = null;
-            List<Contenido> ListaTodo = new List<Contenido>();
+            List<Contenido> Lista = new List<Contenido>();
             Contenido DA = new Contenido();
-            ListaTodo = DA.GetAll();
-            ViewBag.ListaArticulos = ListaTodo;
+            Lista = DA.GetAll();
+            ViewBag.ListaArticulos = CreateSliderVecs(Lista);
+            Lista = DA.GetByPop();
+            ViewBag.ListaArticulosPop = CreateSliderVecs(Lista);
+            Lista = DA.GetByDes();
+            ViewBag.ListaArticulosDes = CreateSliderVecs(Lista);
             return View("~/Views/Home/Index.cshtml");
         }
 

@@ -4,28 +4,24 @@
 
 @if (Usuario.UsuarioConectado != null)
 {
-    using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "pull-xs-right" }))
+    using (Html.BeginForm("LogOff", "Home", FormMethod.Post, new { id = "logoutForm"}))
     {
         @Html.AntiForgeryToken()
-
-        <ul class="row">
-            <li  class="nav-link">
-                <div class="btn-group">
-                    <button class="btn btn-default dropdown-toggle" type="button" data-toggle="dropdown">
-                        @Usuario.UsuarioConectado.Nombre <span class="caret"></span>
-                    </button>
-                    <ul class="dropdown-menu" role="menu">
-                        <li><a href="#">Mi Perfil</a></li>
-                        <li>@Html.ActionLink("Mis subidas", "AbrirSubidas", "Usuario", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })</li>
-                        <li class="divider"></li>
-                        <li>@Html.ActionLink("Log Off", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "registerLink", @class = "dropdown-item" })</li>
-                    </ul>
-                </div>
-            </li> 
-            <li class="nav-link">
+           
+                <li>
+                   <div class="btn-group">
+                        <button data-toggle="dropdown" class="btn btn-primary dropdown-toggle" type="button">@Usuario.UsuarioConectado.Nombre  <span class="caret"></span></button>
+                        <ul role="menu" class="dropdown-menu">
+                            <li>@Html.ActionLink("Mis subidas", "AbrirSubidas", "Usuario", routeValues: null, htmlAttributes: new { id = "registerLink"})</li>
+                            <li><a href="#">Mi Perfil</a></li>
+                            <li class="divider"></li>
+                            <li>@Html.ActionLink("Log Off", "LogOff", "Home", routeValues: null, htmlAttributes: new { id = "registerLink"})</li>
+                        </ul>
+                    </div>
+            </li>
+            <li>
                 <button type="button" class="btn btn-primary" onclick="location.href='@Url.Action("AbrirSubir", "Contenido")'">Subir</button>
             </li>
-        </ul>
     }
 }
 else

@@ -265,6 +265,9 @@
     <Content Include="UI-Flat\js\vendor\jquery.min.map" />
     <Content Include="Views\Contenido\VerMas.cshtml" />
     <Content Include="Views\Shared\_Carrousel.cshtml" />
+    <Content Include="Views\Contenido\SubirE2.cshtml" />
+    <Content Include="Views\Contenido\SubirE3.cshtml" />
+    <Content Include="Views\Contenido\SubirE1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

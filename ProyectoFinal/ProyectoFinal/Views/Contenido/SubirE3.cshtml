@@ -1,0 +1,47 @@
+﻿@using ProyectoFinal.Models
+@model ProyectoFinal.Models.Contenido
+@{
+    ViewBag.Title = "Subir";
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>@ViewBag.Title</title>
+    <link href='http://fonts.googleapis.com/css?family=Nunito:400,300' rel='stylesheet' type='text/css'>
+</head>
+<body>
+    <div class="container">
+        @using (Html.BeginForm("Subir", "Contenido", FormMethod.Post, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
+        {
+            <h2 class="form-signin-heading">Subir archivo</h2>
+            <div class="progress">
+                <div class="progress-bar" style="width: 66%;"></div>
+            </div>
+            <div>
+                <div class="form-group col-md-6">
+                    @Html.ValidationMessageFor(x => x.Ruta)<br />
+                    @Html.TextBox("file", "", new { type = "file", @class = "form-control", @required = "required" })
+                </div>
+
+            </div>
+            @Html.HiddenFor(x => x.Descripcion)
+            @Html.HiddenFor(x => x.Nombre)
+            @Html.HiddenFor(x => x.FechadeSubida)
+            @Html.HiddenFor(x => x.IdEscuelas)
+            @Html.HiddenFor(x => x.IdMateria)
+            @Html.HiddenFor(x => x.IdNivelEdu)
+            @Html.HiddenFor(x => x.IdTipodeCont)
+            @Html.HiddenFor(x => x.Usuario)
+            @Html.HiddenFor(x => x.Profesor)
+            <button class="btn btn-lg btn-primary btn-block" type="submit">Subir</button>
+        }
+
+    </div> <!-- /container -->
+    <script src="../../assets/js/ie10-viewport-bug-workaround.js"></script>
+</body>
+</html>
+
+
