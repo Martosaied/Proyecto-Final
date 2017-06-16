@@ -44,6 +44,12 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.dll</HintPath>
+    </Reference>
+    <Reference Include="EntityFramework.SqlServer, Version=6.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <HintPath>..\packages\EntityFramework.6.1.3\lib\net45\EntityFramework.SqlServer.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.AI.Agent.Intercept, Version=1.2.0.1011, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\Microsoft.ApplicationInsights.Agent.Intercept.1.2.0\lib\net45\Microsoft.AI.Agent.Intercept.dll</HintPath>
       <Private>True</Private>
@@ -206,8 +212,14 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\Contenido.cs" />
+    <Compile Include="Models\DataAccess\Contenidos.cs" />
+    <Compile Include="Models\DataAccess\Escuelas.cs" />
+    <Compile Include="Models\DataAccess\Materias.cs" />
+    <Compile Include="Models\DataAccess\NivelesEducativos.cs" />
+    <Compile Include="Models\DataAccess\TiposContenidos.cs" />
+    <Compile Include="Models\DataAccess\Usuarios.cs" />
     <Compile Include="Models\DataBaseAccess.cs" />
-    <Compile Include="Models\Escuelas.cs" />
+    <Compile Include="Models\Escuela.cs" />
     <Compile Include="Models\Materia.cs" />
     <Compile Include="Models\NivelEducativo.cs" />
     <Compile Include="Models\TipoContenido.cs" />
@@ -265,9 +277,6 @@
     <Content Include="UI-Flat\js\vendor\jquery.min.map" />
     <Content Include="Views\Contenido\VerMas.cshtml" />
     <Content Include="Views\Shared\_Carrousel.cshtml" />
-    <Content Include="Views\Contenido\SubirE2.cshtml" />
-    <Content Include="Views\Contenido\SubirE3.cshtml" />
-    <Content Include="Views\Contenido\SubirE1.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

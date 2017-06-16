@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Models;
+using ProyectoFinal.Models.DataAccess;
 using System.IO;
 
 namespace ProyectoFinal.Controllers
@@ -21,66 +22,25 @@ namespace ProyectoFinal.Controllers
                     string archivo = (DateTime.Now.ToString("yyyyMMddHHmmss") + "-" + file.FileName).ToLower();
                     Cont.Ruta = archivo;
                     Cont.FechadeSubida = DateTime.Now.ToString();
-                    int Correcto = Contenido.Subir(Cont, Usuario.UsuarioConectado);
+                    int Correcto = Contenidos.Subir(Cont, Usuario.UsuarioConectado);
                     file.SaveAs(Server.MapPath("~/Uploads/" + archivo));
-                    Contenido Buscado = new Contenido();
-                    ViewBag.ListaArticulos = Buscado.GetAll();
+                    ViewBag.ListaArticulos = Contenidos.GetAll();
                     return RedirectToAction("Index", "Home");
                 }
-                return View("~/Views/Contenido/SubirE3.cshtml");
+                return View("~/Views/Contenido/SubirContenido.cshtml");
             }
             else
             {
-                return View("~/Views/Contenido/SubirE3.cshtml");
+                return View("~/Views/Contenido/SubirContenido.cshtml");
             }
         }
 
-        public ActionResult SubirE1(Contenido Cont)
-        {
-            if (ModelState.IsValid)
-            {
-                Cont.FechadeSubida = DateTime.Now.ToString();
-                List<TipoContenido> ListTipodecont = new List<TipoContenido>();
-                ListTipodecont = TipoContenido.TraerTipoContenidos();
-
-                List<NivelEducativo> ListNivelEdu = new List<NivelEducativo>();
-                ListNivelEdu = NivelEducativo.TraerNivelEducativo();
-
-                List<Escuelas> ListEscuela = new List<Escuelas>();
-                ListEscuela = Escuelas.TraerEscuelas();
-
-                List<Materia> ListMateria = new List<Materia>();
-                ListMateria = Materia.TraerMaterias();
-
-                ViewBag.TipodeCont = ListTipodecont;
-                ViewBag.NivelEdu = ListNivelEdu;
-                ViewBag.Escuelas = ListEscuela;
-                ViewBag.Materia = ListMateria;
-                return View("~/Views/Contenido/SubirE2.cshtml", Cont);
-            }
-            else
-            {
-                return View("~/Views/Contenido/SubirE1.cshtml", Cont);
-            }
-
-        }
-
-        public ActionResult SubirE2(Contenido Cont)
-        {
-            if (ModelState.IsValid)
-            {
-                return View("~/Views/Contenido/SubirE3.cshtml", Cont);
-            }
-            else
-            {
-                return View("~/Views/Contenido/SubirE2.cshtml", Cont);
-            }
-        }
+ 
         public ActionResult Descargar(int ID)
         {
             Contenido selected = new Contenido();
-            selected = selected.GetOneArticle(ID);
-            selected.UpdateDescargas(selected.ID, selected.Des);
+            selected = Contenidos.GetOneArticle(ID);
+            Contenidos.UpdateDescargas(selected.ID, selected.Des);
             string contentType = System.Net.Mime.MediaTypeNames.Application.Pdf;
             return new FilePathResult("~/Uploads/" + selected.Ruta, contentType)
             {
@@ -91,10 +51,10 @@ namespace ProyectoFinal.Controllers
         public ActionResult VerMas(int cont)
         {
             Contenido selected = new Contenido();
-            selected = selected.GetOneArticle(cont);
-            ViewBag.URL = "http://docs.google.com/viewer?url=" + selected.Ruta + "&embedded=true";
+            selected = Contenidos.GetOneArticle(cont);
+            ViewBag.URL = "http://docs.google.com/viewer?url=http://localhost:1782/Uploads/" + selected.Ruta + "&embedded=true";
             ViewBag.Title = selected.Nombre;
-            selected.UpdatePopularidad(selected.ID, selected.Pop);
+            Contenidos.UpdatePopularidad(selected.ID, selected.Pop);
             return View("~/Views/Contenido/VerMas.cshtml", selected);//porfavor
         }
         public ActionResult VerTodo(string Title)
@@ -104,17 +64,17 @@ namespace ProyectoFinal.Controllers
             switch (Title)
             {
                 case "Mas recientes":
-                    Lista = DA.GetAll();
+                    Lista = Contenidos.GetAll();
                     ViewBag.ListaArticulos = Lista;
                     ViewBag.Title = Title;
                     break;
                 case "Mas populares":
-                    Lista = DA.GetByPop();
+                    Lista = Contenidos.GetByPop();
                     ViewBag.ListaArticulos = Lista;
                     ViewBag.Title = Title;
                     break;
                 case "Mas descargados":
-                    Lista = DA.GetByDes();
+                    Lista = Contenidos.GetByDes();
                     ViewBag.ListaArticulos = Lista;
                     ViewBag.Title = Title;
                     break;
@@ -124,7 +84,23 @@ namespace ProyectoFinal.Controllers
         }
         public ActionResult AbrirSubir()
         {
-            return View("~/Views/Contenido/SubirE1.cshtml");
+            List<TipoContenido> ListTipodecont = new List<TipoContenido>();
+            ListTipodecont = TiposContenidos.TraerTipoContenidos();
+
+            List<NivelEducativo> ListNivelEdu = new List<NivelEducativo>();
+            ListNivelEdu = NivelesEducativos.TraerNivelEducativo();
+
+            List<Escuela> ListEscuela = new List<Escuela>();
+            ListEscuela = Escuelas.TraerEscuelas();
+
+            List<Materia> ListMateria = new List<Materia>();
+            ListMateria = Materias.TraerMaterias();
+
+            ViewBag.TipodeCont = ListTipodecont;
+            ViewBag.NivelEdu = ListNivelEdu;
+            ViewBag.Escuelas = ListEscuela;
+            ViewBag.Materia = ListMateria;
+            return View("~/Views/Contenido/SubirContenido.cshtml");
         }
 
         protected List<string> keywords = new List<string>();
@@ -133,7 +109,7 @@ namespace ProyectoFinal.Controllers
             string vkeywords = Buscado.KeyWords;
             if (vkeywords == null)
             {
-                ViewBag.ListaArticulos = Buscado.GetAll();
+                ViewBag.ListaArticulos = Contenidos.GetAll();
             }
             else
             {
@@ -143,8 +119,7 @@ namespace ProyectoFinal.Controllers
                 this.keywords = keywords.ToList();
 
                 // Do search operation.
-                Contenido dataAccess = new Contenido();
-                List<Contenido> list = dataAccess.Search(this.keywords);
+                List<Contenido> list = Contenidos.Search(this.keywords);
                 ViewBag.ListaArticulos = list;
 
             }

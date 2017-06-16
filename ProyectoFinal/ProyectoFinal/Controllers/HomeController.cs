@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Models;
+using ProyectoFinal.Models.DataAccess;
 
 namespace ProyectoFinal.Controllers
 {
@@ -13,11 +14,11 @@ namespace ProyectoFinal.Controllers
         {
             List<Contenido> Lista = new List<Contenido>();
             Contenido DA = new Contenido();
-            Lista = DA.GetAll();                                                            
+            Lista = Contenidos.GetAll();                                                            
             ViewBag.ListaArticulos = CreateSliderVecs(Lista);
-            Lista = DA.GetByPop();
+            Lista = Contenidos.GetByPop();
             ViewBag.ListaArticulosPop = CreateSliderVecs(Lista);
-            Lista = DA.GetByDes();
+            Lista = Contenidos.GetByDes();
             ViewBag.ListaArticulosDes = CreateSliderVecs(Lista);
             if (ViewBag.ListaArticulosDes[0] == null)
             {
@@ -47,11 +48,11 @@ namespace ProyectoFinal.Controllers
             Usuario.UsuarioConectado = null;
             List<Contenido> Lista = new List<Contenido>();
             Contenido DA = new Contenido();
-            Lista = DA.GetAll();
+            Lista = Contenidos.GetAll();
             ViewBag.ListaArticulos = CreateSliderVecs(Lista);
-            Lista = DA.GetByPop();
+            Lista = Contenidos.GetByPop();
             ViewBag.ListaArticulosPop = CreateSliderVecs(Lista);
-            Lista = DA.GetByDes();
+            Lista = Contenidos.GetByDes();
             ViewBag.ListaArticulosDes = CreateSliderVecs(Lista);
             return View("~/Views/Home/Index.cshtml");
         }

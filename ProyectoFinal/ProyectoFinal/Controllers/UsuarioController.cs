@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using ProyectoFinal.Models;
+using ProyectoFinal.Models.DataAccess;
 
 namespace ProyectoFinal.Controllers
 {
@@ -11,8 +12,7 @@ namespace ProyectoFinal.Controllers
     {
         public ActionResult AbrirSubidas()
         {
-            Contenido Buscado = new Contenido();
-            ViewBag.ListaArticulos = Buscado.GetArticleUser(Usuario.UsuarioConectado.ID);
+            ViewBag.ListaArticulos = Contenidos.GetArticleUser(Usuario.UsuarioConectado.ID);
             if (ViewBag.ListaArticulos == null)
             {
                 List<Contenido> ListVacia = new List<Contenido>();
@@ -26,7 +26,7 @@ namespace ProyectoFinal.Controllers
         {
             if (ModelState.IsValid)
             {
-                int Correcto = Usuario.Registrar(Registrando);
+                int Correcto = Usuarios.Registrar(Registrando);
                 if (Correcto == 1)
                 {
 
@@ -45,10 +45,9 @@ namespace ProyectoFinal.Controllers
             if (ModelState.IsValidField("Email") && ModelState.IsValidField("Contraseña"))
             {
 
-                Usuario User = Usuario.Loguear(Logueando);
+                Usuario User = Usuarios.Loguear(Logueando);
                 if (User != null)
                 {
-                    Usuario.Logueado = true;
                     ViewBag.Usuario = User;
                     Usuario.UsuarioConectado = User;
 
