@@ -1,0 +1,39 @@
+﻿@model PFEF.ViewModels.SubirViewModel
+@{
+    ViewBag.Title = "Subir contenidos";
+}
+
+<h2>Subir contenidos</h2>
+
+@using (Html.BeginForm("Subir", "Contenidos", FormMethod.Post, new { @class = "form-signin", role = "form", enctype = "multipart/form-data" }))
+{
+    <h2 class="form-signin-heading">Subir archivo</h2>
+            @Html.ValidationMessageFor(x => x.Nombre)<br />
+            @Html.TextBoxFor(x => x.Nombre, new { @class = "form-control", placeholder = "Nombre", @required = "required" })
+
+            @Html.ValidationMessageFor(x => x.Ruta)<br />
+            @Html.TextBox("file", "", new { type = "file", @class = "form-control", @required = "required" })
+
+            @Html.ValidationMessageFor(x => x.Descripcion)<br />
+            @Html.TextAreaFor(x => x.Descripcion, new { @class = "form-control", placeholder = "Descripcion", @required = "required" })
+
+            @Html.ValidationMessageFor(x => x.Profesor)<br />
+            @Html.TextBoxFor(x => x.Profesor, new { @class = "form-control", placeholder = "Profesor", @required = "required" })
+
+            @Html.ValidationMessageFor(x => x.Cursada)<br />
+            @Html.TextBoxFor(x => x.Cursada, new { @class = "form-control", placeholder = "Cursada", @required = "required", @type = "Number", min="1900", max="2017" })
+
+            @Html.ValidationMessageFor(x => x.IdEscuela)<br />
+            @Html.DropDownListFor(x => x.IdEscuela, new SelectList(ViewBag.Escuelas, "Id", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle", id = "DDEscuelas" })
+
+            @Html.ValidationMessageFor(x => x.IdMateria)<br />
+            @Html.DropDownListFor(x => x.IdMateria, new SelectList(ViewBag.Materia, "Id", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+
+            @Html.ValidationMessageFor(x => x.IdTipoContenido)<br />
+            @Html.DropDownListFor(x => x.IdTipoContenido, new SelectList(ViewBag.TipodeCont, "Id", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+
+            @Html.ValidationMessageFor(x => x.IdNivelEducativo)<br />
+            @Html.DropDownListFor(x => x.IdNivelEducativo, new SelectList(ViewBag.NivelEdu, "Id", "Nombre"), new { @class = "btn btn-inverse dropdown-toggle" })
+
+    <button class="btn btn-lg btn-primary btn-block" type="submit">Subir</button>
+}

@@ -1,0 +1,404 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="dbModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="Contenidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+          <Property Name="Descripcion" Type="text" Nullable="false" />
+          <Property Name="Ruta" Type="text" Nullable="false" />
+          <Property Name="Profesor" Type="text" Nullable="false" />
+          <Property Name="Cursada" Type="int" Nullable="false" />
+          <Property Name="IdUsuario" Type="int" Nullable="false" />
+          <Property Name="IdEscuela" Type="int" />
+          <Property Name="IdMateria" Type="int" />
+          <Property Name="IdNivelEducativo" Type="int" />
+          <Property Name="IdTipoContenido" Type="int" />
+          <Property Name="IPop" Type="int" />
+          <Property Name="IDes" Type="int" />
+          <Property Name="FechaSubida" Type="datetime" />
+        </EntityType>
+        <EntityType Name="Escuelas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="NivelesEducativos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="TiposContenidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" Nullable="false" />
+          <Property Name="Nombre" Type="text" Nullable="false" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Apellido" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Email" Type="nchar" MaxLength="100" Nullable="false" />
+          <Property Name="Contraseña" Type="nchar" MaxLength="16" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_Contenidos_ToEscuelas">
+          <End Role="Escuelas" Type="Self.Escuelas" Multiplicity="0..1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Escuelas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdEscuela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToMaterias">
+          <End Role="Materias" Type="Self.Materias" Multiplicity="0..1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToNivelesEducativos">
+          <End Role="NivelesEducativos" Type="Self.NivelesEducativos" Multiplicity="0..1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NivelesEducativos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdNivelEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToTiposContenidos">
+          <End Role="TiposContenidos" Type="Self.TiposContenidos" Multiplicity="0..1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposContenidos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdTipoContenido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToUsuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbModelStoreContainer">
+          <EntitySet Name="Contenidos" EntityType="Self.Contenidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Escuelas" EntityType="Self.Escuelas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Materias" EntityType="Self.Materias" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="NivelesEducativos" EntityType="Self.NivelesEducativos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="TiposContenidos" EntityType="Self.TiposContenidos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_Contenidos_ToEscuelas" Association="Self.FK_Contenidos_ToEscuelas">
+            <End Role="Escuelas" EntitySet="Escuelas" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToMaterias" Association="Self.FK_Contenidos_ToMaterias">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToNivelesEducativos" Association="Self.FK_Contenidos_ToNivelesEducativos">
+            <End Role="NivelesEducativos" EntitySet="NivelesEducativos" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToTiposContenidos" Association="Self.FK_Contenidos_ToTiposContenidos">
+            <End Role="TiposContenidos" EntitySet="TiposContenidos" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToUsuarios" Association="Self.FK_Contenidos_ToUsuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="dbModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="Contenidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Descripcion" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Ruta" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Profesor" Type="String" MaxLength="Max" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="Cursada" Type="Int32" Nullable="false" />
+          <Property Name="IdUsuario" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="Usuarios" Relationship="Self.FK_Contenidos_ToUsuarios" FromRole="Contenidos" ToRole="Usuarios" />
+          <Property Name="IdEscuela" Type="Int32" />
+          <Property Name="IdMateria" Type="Int32" />
+          <Property Name="IdNivelEducativo" Type="Int32" />
+          <Property Name="IdTipoContenido" Type="Int32" />
+          <NavigationProperty Name="Escuelas" Relationship="dbModel.FK_Contenidos_ToEscuelas" FromRole="Contenidos" ToRole="Escuelas" />
+          <NavigationProperty Name="Materias" Relationship="dbModel.FK_Contenidos_ToMaterias" FromRole="Contenidos" ToRole="Materias" />
+          <NavigationProperty Name="NivelesEducativos" Relationship="dbModel.FK_Contenidos_ToNivelesEducativos" FromRole="Contenidos" ToRole="NivelesEducativos" />
+          <NavigationProperty Name="TiposContenidos" Relationship="dbModel.FK_Contenidos_ToTiposContenidos" FromRole="Contenidos" ToRole="TiposContenidos" />
+          <Property Name="IPop" Type="Int32" />
+          <Property Name="IDes" Type="Int32" />
+          <Property Name="FechaSubida" Type="DateTime" Precision="3" />
+        </EntityType>
+        <EntityType Name="Usuarios">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Apellido" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Email" Type="String" MaxLength="100" FixedLength="true" Unicode="true" Nullable="false" />
+          <Property Name="Contraseña" Type="String" MaxLength="16" FixedLength="true" Unicode="true" Nullable="false" />
+          <NavigationProperty Name="Contenidos" Relationship="Self.FK_Contenidos_ToUsuarios" FromRole="Usuarios" ToRole="Contenidos" />
+        </EntityType>
+        <Association Name="FK_Contenidos_ToUsuarios">
+          <End Role="Usuarios" Type="Self.Usuarios" Multiplicity="1" />
+          <End Role="Contenidos" Type="Self.Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Usuarios">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdUsuario" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="dbEntities1" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="Contenidos" EntityType="Self.Contenidos" />
+          <EntitySet Name="Usuarios" EntityType="Self.Usuarios" />
+          <AssociationSet Name="FK_Contenidos_ToUsuarios" Association="Self.FK_Contenidos_ToUsuarios">
+            <End Role="Usuarios" EntitySet="Usuarios" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <EntitySet Name="Escuelas" EntityType="dbModel.Escuelas" />
+          <EntitySet Name="Materias" EntityType="dbModel.Materias" />
+          <EntitySet Name="NivelesEducativos" EntityType="dbModel.NivelesEducativos" />
+          <EntitySet Name="TiposContenidos" EntityType="dbModel.TiposContenidos" />
+          <AssociationSet Name="FK_Contenidos_ToEscuelas" Association="dbModel.FK_Contenidos_ToEscuelas">
+            <End Role="Escuelas" EntitySet="Escuelas" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToMaterias" Association="dbModel.FK_Contenidos_ToMaterias">
+            <End Role="Materias" EntitySet="Materias" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToNivelesEducativos" Association="dbModel.FK_Contenidos_ToNivelesEducativos">
+            <End Role="NivelesEducativos" EntitySet="NivelesEducativos" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_Contenidos_ToTiposContenidos" Association="dbModel.FK_Contenidos_ToTiposContenidos">
+            <End Role="TiposContenidos" EntitySet="TiposContenidos" />
+            <End Role="Contenidos" EntitySet="Contenidos" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="Escuelas">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contenidos" Relationship="dbModel.FK_Contenidos_ToEscuelas" FromRole="Escuelas" ToRole="Contenidos" />
+        </EntityType>
+        <EntityType Name="Materias">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contenidos" Relationship="dbModel.FK_Contenidos_ToMaterias" FromRole="Materias" ToRole="Contenidos" />
+        </EntityType>
+        <EntityType Name="NivelesEducativos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contenidos" Relationship="dbModel.FK_Contenidos_ToNivelesEducativos" FromRole="NivelesEducativos" ToRole="Contenidos" />
+        </EntityType>
+        <EntityType Name="TiposContenidos">
+          <Key>
+            <PropertyRef Name="Id" />
+          </Key>
+          <Property Name="Id" Type="Int32" Nullable="false" />
+          <Property Name="Nombre" Type="String" Nullable="false" MaxLength="Max" FixedLength="false" Unicode="false" />
+          <NavigationProperty Name="Contenidos" Relationship="dbModel.FK_Contenidos_ToTiposContenidos" FromRole="TiposContenidos" ToRole="Contenidos" />
+        </EntityType>
+        <Association Name="FK_Contenidos_ToEscuelas">
+          <End Type="dbModel.Escuelas" Role="Escuelas" Multiplicity="0..1" />
+          <End Type="dbModel.Contenidos" Role="Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Escuelas">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdEscuela" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToMaterias">
+          <End Type="dbModel.Materias" Role="Materias" Multiplicity="0..1" />
+          <End Type="dbModel.Contenidos" Role="Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="Materias">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdMateria" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToNivelesEducativos">
+          <End Type="dbModel.NivelesEducativos" Role="NivelesEducativos" Multiplicity="0..1" />
+          <End Type="dbModel.Contenidos" Role="Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="NivelesEducativos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdNivelEducativo" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_Contenidos_ToTiposContenidos">
+          <End Type="dbModel.TiposContenidos" Role="TiposContenidos" Multiplicity="0..1" />
+          <End Type="dbModel.Contenidos" Role="Contenidos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="TiposContenidos">
+              <PropertyRef Name="Id" />
+            </Principal>
+            <Dependent Role="Contenidos">
+              <PropertyRef Name="IdTipoContenido" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="dbModelStoreContainer" CdmEntityContainer="dbEntities1">
+          <EntitySetMapping Name="Contenidos">
+            <EntityTypeMapping TypeName="dbModel.Contenidos">
+              <MappingFragment StoreEntitySet="Contenidos">
+                <ScalarProperty Name="FechaSubida" ColumnName="FechaSubida" />
+                <ScalarProperty Name="IDes" ColumnName="IDes" />
+                <ScalarProperty Name="IPop" ColumnName="IPop" />
+                <ScalarProperty Name="IdTipoContenido" ColumnName="IdTipoContenido" />
+                <ScalarProperty Name="IdNivelEducativo" ColumnName="IdNivelEducativo" />
+                <ScalarProperty Name="IdMateria" ColumnName="IdMateria" />
+                <ScalarProperty Name="IdEscuela" ColumnName="IdEscuela" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Descripcion" ColumnName="Descripcion" />
+                <ScalarProperty Name="Ruta" ColumnName="Ruta" />
+                <ScalarProperty Name="Profesor" ColumnName="Profesor" />
+                <ScalarProperty Name="Cursada" ColumnName="Cursada" />
+                <ScalarProperty Name="IdUsuario" ColumnName="IdUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Usuarios">
+            <EntityTypeMapping TypeName="dbModel.Usuarios">
+              <MappingFragment StoreEntitySet="Usuarios">
+                <ScalarProperty Name="Id" ColumnName="Id" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Apellido" ColumnName="Apellido" />
+                <ScalarProperty Name="Email" ColumnName="Email" />
+                <ScalarProperty Name="Contraseña" ColumnName="Contraseña" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Escuelas">
+            <EntityTypeMapping TypeName="dbModel.Escuelas">
+              <MappingFragment StoreEntitySet="Escuelas">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="Materias">
+            <EntityTypeMapping TypeName="dbModel.Materias">
+              <MappingFragment StoreEntitySet="Materias">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="NivelesEducativos">
+            <EntityTypeMapping TypeName="dbModel.NivelesEducativos">
+              <MappingFragment StoreEntitySet="NivelesEducativos">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="TiposContenidos">
+            <EntityTypeMapping TypeName="dbModel.TiposContenidos">
+              <MappingFragment StoreEntitySet="TiposContenidos">
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="Id" ColumnName="Id" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>
