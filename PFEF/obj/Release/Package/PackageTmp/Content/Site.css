@@ -1,0 +1,81 @@
+﻿
+
+/* Set padding to keep content from hitting the edges */
+.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+.dl-horizontal dt {
+    white-space: normal;
+}
+
+/* Set width on the form input elements since they're 100% wide by default */
+input,
+select,
+textarea {
+    max-width: 280px;
+}
+.mitag {
+    font-size: 12px;
+}
+
+.Desc {
+    height: 48px;
+}
+
+
+.Tit {
+    height: 30px;
+}
+
+p ,.DescT {
+    font-size: 14px;
+}
+
+.cont {
+    margin-bottom: 30px;
+    box-shadow: 1px 1px 5px #888888;
+}
+
+
+@media (min-width: 768px) {
+    .sep {
+        width: 6%;
+    }
+
+    .cont {
+        width: 45.5%;
+    }
+}
+
+@media (min-width: 992px) {
+
+    .sep {
+        width: 4.7%;
+    }
+
+    .cont {
+        width: 30.33%;
+    }
+}
+
+@media (min-width: 1200px) {
+    .sep {
+        width: 3.2%;
+    }
+
+    .cont {
+        width: 24%;
+    }
+    .tags {
+        height: 80px;
+    }
+
+    .Tit {
+        height: 60px;
+    }
+}

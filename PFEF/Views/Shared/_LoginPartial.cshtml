@@ -1,0 +1,26 @@
+﻿@using PFEF.Models
+@using Microsoft.AspNet.Identity
+@if (Session["User"] != null)
+{
+    using (Html.BeginForm("LogOff", "Usuario", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
+    {
+    @Html.AntiForgeryToken()
+        Usuarios user = (Usuarios)Session["User"];
+    <ul class="nav navbar-nav navbar-right">
+        <li>
+            <!--Html.ActionLink("Hello " + user.Nombre + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })-->
+        </li>
+        <li><a href="javascript:document.getElementById('logoutForm').submit()">Log off</a></li>
+        <li>
+            @Html.ActionLink("Subir contenido", "Subir", "Contenidos", routeValues: null, htmlAttributes: new { title = "Manage" })
+        </li>
+    </ul>
+    }
+}
+else
+{
+    <ul class="nav navbar-nav navbar-right">
+        <li>@Html.ActionLink("Register", "Registracion", "Usuarios", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
+        <li>@Html.ActionLink("Log in", "Login", "Usuarios", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
+    </ul>
+}
